@@ -97,11 +97,12 @@ html{
 *{
   box-sizing: border-box;
   transition: background-color 0.3s linear;
-  color:${(props) => props.theme.fontColor};
+ 
 }
 body{
   font-family: "San Francisco", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background-color: ${(props) => props.theme.bgColor};
+  color:${(props) => props.theme.fontColor};
 }
 input{
   outline: none;
