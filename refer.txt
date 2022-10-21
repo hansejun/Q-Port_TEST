@@ -1,0 +1,10 @@
+
+(민기)2. 프로필 수정 페이지 (/profile/edit) : 검증 및 user 정보 전송하기  //  4
+(민기)3. 질문페이지 (/questions) : question 데이터 가져오기  2
+(민기)4. 메인 페이지 (/)  : 순위 가져오기 1
+(민기)답 작성 페이지 (/questions/:questionId/write) : answer 데이터 전송하기 post  3
+
+(세준)1. 질문 디테일 페이지 (/questions/:questionId) : question / user / answer 데이터 가져오기
+(세준)5. 로그인 페이지 (/login) : 검증 및 login 데이터 전송
+(세준)6. 회원 가입 페이지 (/join) : 검증 및 회원가입 데이터 전송
+(세준)8. 프로필 페이지 (/profile/:userId) : user / question 정보 가져오기 get
