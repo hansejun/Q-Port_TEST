@@ -87,6 +87,7 @@ table {
 button{
   border:none;
   background-color: inherit;
+  cursor: pointer;
 }
 
 html{
