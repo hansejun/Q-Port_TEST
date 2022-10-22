@@ -21,7 +21,7 @@ function Join() {
   };
   return (
     <Layout>
-      <JoinContainer>
+      <JoinContainer as="main">
         <Form onSubmit={handleSubmit(onValid)}>
           <h1>회원가입</h1>
           <TextInput
