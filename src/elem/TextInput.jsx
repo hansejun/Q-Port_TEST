@@ -31,7 +31,7 @@ const Input = styled.input`
   border: 1px solid rgba(0, 0, 0, 0.4);
   background-color: white;
   &:-webkit-autofill {
-    box-shadow: 0 0 0 1000px white inset;
+    -webkit-box-shadow: 0 0 0 1000px white inset;
   }
   &:focus {
     border: 1.5px solid #7298ff;
