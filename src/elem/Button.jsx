@@ -15,6 +15,8 @@ function Button(props) {
     borderRadius,
     _hoverColor,
     _hoverBgColor,
+    /* _marginLeft, */
+    _flexDirection
   } = props;
 
   const styles = {
@@ -27,6 +29,8 @@ function Button(props) {
     borderRadius,
     _hoverColor,
     _hoverBgColor,
+    /* _marginLeft, */
+    _flexDirection
   };
   return (
     <Btn {...styles} onClick={_onClick}>
@@ -46,6 +50,8 @@ Button.defaultProps = {
   _fontWeight: "500",
   _hoverColor: "#ffffff",
   _hoverBgColor: "#292929d7",
+  _flexDirection:"column-reverse;"
+  /* _marginLeft:"90%" */
 };
 
 export default Button;
@@ -59,6 +65,7 @@ const Btn = styled.button`
   font-weight: ${(props) => props._fontWeight};
   color: ${(props) => props._color};
   border-radius: ${(props) => props.borderRadius};
+  /* margin-left: ${(props) => props._marginLeft}; */
   &:hover {
     color: ${(props) => props._hoverColor};
     background-color: ${(props) => props._hoverBgColor};

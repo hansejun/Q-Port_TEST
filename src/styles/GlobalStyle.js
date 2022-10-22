@@ -106,11 +106,14 @@ body{
 }
 input{
   outline: none;
-  border: none;
 }
 textarea{
   outline: none;
   border: none;
 }
-
+link{
+  &:visited {
+  text-decoration: none;
+  }
+}
 `;
