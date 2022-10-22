@@ -1,7 +1,13 @@
 import styled from "styled-components";
+import Header from "../Header/Header";
 
 function Layout({ children }) {
-  return <Wrapper>{children}</Wrapper>;
+  return (
+    <Wrapper>
+      <Header />
+      {children}
+    </Wrapper>
+  );
 }
 
 export default Layout;

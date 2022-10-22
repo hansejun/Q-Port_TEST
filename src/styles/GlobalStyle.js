@@ -87,6 +87,9 @@ table {
 button{
   border:none;
   background-color: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
 html{
@@ -96,19 +99,23 @@ html{
 *{
   box-sizing: border-box;
   transition: background-color 0.3s linear;
-  color:${(props) => props.theme.fontColor};
+ 
 }
 body{
   font-family: "San Francisco", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background-color: ${(props) => props.theme.bgColor};
+  color:${(props) => props.theme.fontColor};
 }
 input{
   outline: none;
-  border: none;
 }
 textarea{
   outline: none;
   border: none;
 }
-
+link{
+  &:visited {
+  text-decoration: none;
+  }
+}
 `;
