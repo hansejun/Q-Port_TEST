@@ -44,8 +44,8 @@ function Join() {
               ...register("password", {
                 required: "비밀번호를 입력해주세요.",
                 minLength: {
-                  value: 4,
-                  message: "비밀번호는 4자 이상으로 작성해야합니다.",
+                  value: 3,
+                  message: "비밀번호는 3자 이상으로 작성해야합니다.",
                 },
               }),
             }}
@@ -60,8 +60,8 @@ function Join() {
               ...register("password2", {
                 required: "비밀번호를 입력해주세요.",
                 minLength: {
-                  value: 4,
-                  message: "비밀번호는 4자 이상으로 작성해야합니다.",
+                  value: 3,
+                  message: "비밀번호는 3자 이상으로 작성해야합니다.",
                 },
               }),
             }}
@@ -76,12 +76,8 @@ function Join() {
               ...register("nickname", {
                 required: "닉네임을 입력해주세요.",
                 minLength: {
-                  value: 2,
+                  value: 3,
                   message: "닉네임은 2자 이상으로 작성해야합니다.",
-                },
-                pattern: {
-                  value: /^[a-z0-9ㄱ-ㅎ가-힣]+$/g,
-                  message: "닉네임에는 특수 문자 및 공백이 불가능합니다.",
                 },
               }),
             }}
@@ -91,7 +87,9 @@ function Join() {
           <ErrorMessage>
             {errors.nickname && errors.nickname.message}
           </ErrorMessage>
-          <Button {...btnStyle}>회원가입</Button>
+          <Button _width="100%" _fontSize="0.9rem" _padding="0.8rem">
+            회원가입
+          </Button>
         </Form>
       </JoinContainer>
     </Layout>
@@ -99,28 +97,20 @@ function Join() {
 }
 export default Join;
 
-const btnStyle = {
-  _width: "100%",
-  _fontSize: "0.9rem",
-  _padding: "0.8rem",
-  _bgColor: "rgba(0,0,0,0.75)",
-  _hoverBgColor: "rgba(0,0,0,0.9)",
-};
-
 const JoinContainer = styled.div`
-  padding-top: 10vh;
+  padding: 10vh;
 `;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
   width: 30rem;
-  padding: 3rem 3rem;
+  padding: 4rem 3rem;
   border: 1px solid rgba(0, 0, 0, 0.4);
   margin: 0 auto;
   h1 {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     font-size: 1.6rem;
     font-weight: 600;
   }
