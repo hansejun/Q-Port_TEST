@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Layout from "../components/Layout/Layout";
 import TextInput from "../elem/TextInput";
 import Button from "../elem/Button";
+
 function Login() {
   const {
     register,
@@ -34,7 +35,13 @@ function Login() {
           <ErrorMessage>{errors.email && errors.email.message}</ErrorMessage>
           <TextInput
             register={{
-              ...register("password", { required: "비밀번호를 입력해주세요." }),
+              ...register("password", {
+                required: "비밀번호를 입력해주세요.",
+                minLength: {
+                  value: 4,
+                  message: "비밀번호는 4자 이상입니다.",
+                },
+              }),
             }}
             label="password"
             type="password"
@@ -43,9 +50,7 @@ function Login() {
             {errors.password && errors.password.message}
           </ErrorMessage>
 
-          <Button _width="100%" _fontSize="0.9rem" _padding="0.8rem">
-            로그인
-          </Button>
+          <Button {...btnStyle}>로그인</Button>
         </Form>
       </LoginContainer>
     </Layout>
@@ -54,21 +59,28 @@ function Login() {
 
 export default Login;
 
+const btnStyle = {
+  _width: "100%",
+  _fontSize: "0.9rem",
+  _padding: "0.8rem",
+  _bgColor: "rgba(0,0,0,0.75)",
+  _hoverBgColor: "rgba(0,0,0,0.9)",
+};
+
 const LoginContainer = styled.div`
-  padding: 10vh;
+  padding: 15vh;
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  width: 100%;
   width: 30rem;
-  padding: 4rem 3rem;
-  border: 1px solid rgba(0, 0, 0, 0.4);
+  padding: 3rem 3rem;
+  border: 1px solid rgba(0, 0, 0, 0.3);
   margin: 0 auto;
   h1 {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     font-size: 1.6rem;
     font-weight: 600;
   }

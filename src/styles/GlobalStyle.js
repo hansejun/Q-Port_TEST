@@ -88,6 +88,7 @@ button{
   border:none;
   background-color: inherit;
   cursor: pointer;
+  outline: none;
 }
 
 html{
@@ -113,5 +114,9 @@ textarea{
   outline: none;
   border: none;
 }
-
+a{
+  color:inherit;
+  text-decoration: none;
+  transition: color 0.2s linear;
+}
 `;
