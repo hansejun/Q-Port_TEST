@@ -108,7 +108,6 @@ body{
 }
 input{
   outline: none;
-  transition: visibility 0.3s linear;
 }
 textarea{
   outline: none;
