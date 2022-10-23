@@ -1,8 +1,19 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { readQuestion } from "../../redux/modules/questions";
 import { Flexbox } from "../../styles/flex";
 import QuestionSvg from "../../styles/svg/QuestionSvg";
 function QContainer() {
+  const { question } = useSelector((state) => state.questions);
+  console.log(question);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(readQuestion(+id));
+  }, [id, dispatch]);
+
   return (
     <Container as="section">
       <QHeader>
@@ -18,7 +29,7 @@ function QContainer() {
           일요일마다 WIL 쓰라고 하는거죠?왜 일요일마다 WIL 쓰라고 하는거죠?왜
           일요일마다 WIL 쓰라고 하는거죠?
         </p>
-        <div>이미지</div>
+        {question?.imgUrl ? <img src={question.imgUrl} alt="" /> : null}
       </QContent>
       <QFooter>
         <Link to={"/profile/:id"}>
@@ -68,6 +79,9 @@ const QContent = styled.div`
     width: 30%;
     aspect-ratio: 1/1;
     background-color: rgba(0, 0, 0, 0.2);
+  }
+  img {
+    margin-top: 2rem;
   }
 `;
 

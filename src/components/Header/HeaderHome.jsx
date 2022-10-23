@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import Button from '../../elem/Button';
+import Button from "../../elem/Button";
 
 const btnStyle = {
-  _width:"7%",
-  _padding:"1px",
-}
+  _width: "7%",
+  _padding: "1px",
+};
 
 function HeaderHome() {
   return (
@@ -18,8 +18,8 @@ function HeaderHome() {
 export default HeaderHome;
 
 const HeaderWrapperHome = styled.div`
-  height: 44px;
+  height: 50px;
   max-width: 1000px;
-  background-color:#323232;
+  background-color: #323232;
   color: white;
 `;

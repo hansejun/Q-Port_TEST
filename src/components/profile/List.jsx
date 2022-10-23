@@ -1,7 +1,16 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { readQuestions } from "../../redux/modules/questions";
 import Item from "./Item";
 
 function List({ isAnswer }) {
+  const { questions } = useSelector((state) => state.questions);
+  const dispatch = useDispatch();
+  console.log(questions);
+  useEffect(() => {
+    if (!isAnswer) dispatch(readQuestions());
+  }, [isAnswer, dispatch]);
   return (
     <ListContainer>
       <ListHead isAnswer={isAnswer}>
@@ -10,8 +19,8 @@ function List({ isAnswer }) {
         {isAnswer ? null : <span>답변</span>}
         <span>작성일</span>
       </ListHead>
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, idx) => (
-        <Item key={idx} isAnswer={isAnswer} />
+      {questions?.map((data, idx) => (
+        <Item key={idx} isAnswer={isAnswer} data={data} />
       ))}
     </ListContainer>
   );
