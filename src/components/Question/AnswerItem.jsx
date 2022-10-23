@@ -3,13 +3,14 @@ import Button from "../../elem/Button";
 import { FlexBetweenBox, Flexbox } from "../../styles/flex";
 import HeartSvg from "../../styles/svg/HeartSvg";
 import CommentSvg from "../../styles/svg/CommentSvg";
+import { Link } from "react-router-dom";
 
 function AnswerItem() {
   return (
     <ItemBox>
       <ItemUser>
         <span>
-          <strong>박지식</strong>님의 답변
+          <Link to={"/profile/1"}>박지식</Link>님의 답변
         </span>
         <div className="img" />
       </ItemUser>
@@ -58,7 +59,7 @@ const ItemUser = styled.div`
   border-radius: 10px;
   span {
     color: rgba(0, 0, 0, 0.7);
-    strong {
+    a {
       font-size: 1rem;
       color: ${(props) => props.theme.fontColor};
       margin-right: 0.1rem;
