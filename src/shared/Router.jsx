@@ -16,10 +16,11 @@ function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/join" element={<Join />} />
         <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/questions/:id" element={<QuestionDetail />} />
-        <Route path="/questions" element={<Question />} />
-        <Route path="/questions/:id/write" element={<WriteAnswer />} />
         <Route path="/profile/edit" element={<ProfileEdit />} />
+        <Route path="/questions" element={<Question />} />
+        <Route path="/questions/:questionsId" element={<QuestionDetail />} />
+        <Route path="/questions/:questionsId/write" element={<WriteAnswer />} />
+        
       </Routes>
     </BrowserRouter>
   );

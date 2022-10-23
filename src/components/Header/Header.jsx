@@ -11,7 +11,7 @@ function Header() {
     <HeaderWrapper as={"header"}>
       <span>Qport</span>
       <Button {...btnStyle}>Login</Button>
-      <Button {...btnStyle}>Register</Button>
+      <Button {...btnStyle}>Join</Button>
     </HeaderWrapper>
   );
 }

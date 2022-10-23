@@ -3,6 +3,7 @@ import Layout from "../components/Layout/Layout";
 import QContainer from "../components/Question/QContainer";
 
 function QuestionDetail() {
+
   return (
     <Layout>
       <Wrapper>
