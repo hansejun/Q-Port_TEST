@@ -5,7 +5,7 @@ import CommentSvg from "../../styles/svg/CommentSvg";
 function Item({ isAnswer }) {
   return (
     <DataContainer>
-      <Link to={"#"}>
+      <Link to={"/questions/:id"}>
         <p>잠이 안옵니다</p>
       </Link>
       <DataContent isAnswer={isAnswer}>
