@@ -4,8 +4,8 @@ import { Flexbox } from "../../styles/flex";
 import QuestionSvg from "../../styles/svg/QuestionSvg";
 function QContainer() {
   return (
-    <Container>
-      <QHeader className="header">
+    <Container as="section">
+      <QHeader>
         <QuestionSvg />
         <div>
           <span>질문 올립니다.</span>
@@ -40,6 +40,7 @@ const Container = styled.div`
   padding-bottom: 0;
   display: flex;
   flex-direction: column;
+  background-color: ${(props) => props.theme.bgColor};
 `;
 
 const QHeader = styled.div`
