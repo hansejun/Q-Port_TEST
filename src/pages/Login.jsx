@@ -3,15 +3,32 @@ import styled from "styled-components";
 import Layout from "../components/Layout/Layout";
 import TextInput from "../elem/TextInput";
 import Button from "../elem/Button";
+import axios from "axios";
 
 function Login() {
   const {
     register,
     handleSubmit,
-
     formState: { errors },
   } = useForm();
-  const onValid = (inputs) => {};
+
+  const onValid = async (inputs) => {
+    const info = {
+      email: inputs.email,
+      password: inputs.password,
+    };
+    // BaseUrl 추가
+    const response = await axios.post("/api/login", info).then((res) => {
+      //console.log(res)
+      //setAccessToken(res.headers.authorization);
+      //setRefreshToken(res.headers['refresh-token'])
+    });
+    if (response.data.ok) {
+      window.location.href = "/";
+    } else {
+      alert("로그인 실패");
+    }
+  };
 
   return (
     <Layout>

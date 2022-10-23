@@ -1,15 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logoPng from "../../styles/img/logo.png";
-
-// const btnStyle = {
-//   _width: "7%",
-//   _padding: "1px",
-// };
 
 function Header() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin] = useState(false);
   return (
     <HeaderWrapper as={"header"}>
       <nav>
@@ -51,6 +45,7 @@ const HeaderWrapper = styled.div`
   top: 0;
   nav {
     max-width: 1000px;
+    width: 80%;
     height: 100%;
     margin: 0 auto;
     display: flex;
@@ -62,9 +57,9 @@ const HeaderWrapper = styled.div`
         margin-left: 3rem;
       }
       li {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         margin-left: 1rem;
-        font-weight: 500;
+        font-weight: 400;
       }
     }
   }

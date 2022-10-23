@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Layout from "../components/Layout/Layout";
 import TextInput from "../elem/TextInput";
 import Button from "../elem/Button";
+import axios from "axios";
 function Join() {
   const {
     register,
@@ -10,14 +11,26 @@ function Join() {
     formState: { errors },
     setError,
   } = useForm();
-  const onValid = (inputs) => {
+  const onValid = async (inputs) => {
     if (inputs.password !== inputs.password2) {
       setError(
         "password2",
         { message: "비밀번호가 일치하지 않습니다." },
         { shouldFocus: true }
       );
+      return;
     }
+    const info = {
+      email: inputs.email,
+      nickname: inputs.nickname,
+      password: inputs.password,
+    };
+    const response = await axios.post("/api/signup", info);
+    if (!response.ok) {
+      alert(response.message);
+      return;
+    }
+    window.location.href = "/";
   };
   return (
     <Layout>

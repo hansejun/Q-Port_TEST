@@ -1,0 +1,40 @@
+{
+  "questions": [
+    {
+      "id": 3,
+      "userId": 1,
+      "title": "dfggsdgs.",
+      "imgUrl": "post/1666520664689.png",
+      "selectedAnswer": 1,
+      "createdAt": "1666519926650",
+      "updatedAt": "1666519926650"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "title": "dfggsdgs.",
+      "imgUrl": "https://qportminiprojectmini.s3.ap-northeast-2.amazonaws.com/post/1666518459090.gif",
+      "selectedAnswer": 0,
+      "createdAt": "1666519926491",
+      "updatedAt": "1666519926491"
+    },
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "dfggsdgs.",
+      "imgUrl": "https://qportminiprojectmini.s3.ap-northeast-2.amazonaws.com/post/1666518459090.gif",
+      "selectedAnswer": 0,
+      "createdAt": "1666519901783",
+      "updatedAt": "1666519901783"
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "title": "dfggsdgs.",
+      "imgUrl": "https://qportminiprojectmini.s3.ap-northeast-2.amazonaws.com/post/1666518459090.gif",
+      "selectedAnswer": 0,
+      "createdAt": "1666526268605",
+      "updatedAt": "1666519901783"
+    }
+  ]
+}
