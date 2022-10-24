@@ -1,4 +1,4 @@
-import LayoutHome from "../components/Layout/Layout-Home";
+import Layout from "../components/Layout/Layout";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
@@ -10,6 +10,7 @@ import me3 from "../static/memoji3.png";
 import me4 from "../static/memoji4.png";
 import me5 from "../static/memoji5.png";
 import { Link } from "react-router-dom";
+
 
 function Home() {
   const Q = useSelector((state) => state.questions.users);
@@ -23,8 +24,10 @@ function Home() {
   const backgroundImg = backgroundArr[randomIndex];
   console.log(backgroundImg);
 
+  
+
   return (
-    <LayoutHome>
+    <Layout>
       <Box>
         <RandomImg style={{ backgroundImage: `url(${backgroundImg})` }} />
       </Box>
@@ -61,7 +64,7 @@ function Home() {
           </RankList>
         ))}
       </Ranker>
-    </LayoutHome>
+    </Layout>
   );
 }
 
@@ -71,6 +74,7 @@ export default Home;
 const Box = styled.div`
   position: relative;
   margin: 0 auto;
+  margin-top: 44px;
   width: 100%;
   height: 201px;
   background-size: cover;
@@ -85,7 +89,7 @@ const RandomImg = styled.div`
   margin-top: 35px;
   width: 170px;
   height: 166px;
-  margin-left: 60rem;
+  margin-left: 55%;
 `;
 
 // 서치 인풋박스

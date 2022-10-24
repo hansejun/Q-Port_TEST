@@ -1,20 +1,20 @@
-import { useState } from "react";
+/* import { useState } from "react"; */
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logoPng from "../../styles/img/logo.png";
+/* import Qport from "../static/logo.png"; */
 
-// const btnStyle = {
-//   _width: "7%",
-//   _padding: "1px",
-// };
 
 function Header() {
-  const [isLogin, setIsLogin] = useState(false);
+  /* const [isLogin, setIsLogin] = useState(false); */
   return (
     <HeaderWrapper as={"header"}>
       <nav>
-        <span>Logo</span>
+        <Logo>Logo</Logo>
         <ul>
+        <Link to="/login">Login</Link>
+        <Link to="/join">Join</Link>
+        </ul>
+        {/* <ul>
           {!isLogin ? (
             <>
               <li>
@@ -34,13 +34,12 @@ function Header() {
               </li>
             </>
           )}
-        </ul>
+          </ul>  */}
       </nav>
     </HeaderWrapper>
   );
 }
 export default Header;
-
 const HeaderWrapper = styled.div`
   width: 100%;
   height: 44px;
@@ -70,7 +69,7 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-const Logo = styled.img`
-  width: 4rem;
-  color: white;
+const Logo = styled.div`
+  /* background-image: url('$(Qport)'); */
 `;
+

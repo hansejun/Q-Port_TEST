@@ -51,8 +51,9 @@ export default Question;
 
   // 질문 페이지 타이틀
 const PageTitle = styled.div`
-  
-  margin-top: 1rem;
+  width: 1000px;
+  margin:0 auto;
+  margin-top: 4rem;
   font-size: 4rem;
   font-weight: bold;
 `;
@@ -66,7 +67,7 @@ const ThreadTitle = styled.div`
   // 스레드 그룹
 const ThreadGroup = styled.div`
   /* background-color: green; */
-  width: 900px;
+  width: 1000px;
   margin: 0 auto;
   margin-top: 1.5rem;
   display: flex;
@@ -84,7 +85,7 @@ const Threadicon = styled.div`
   // 스레드 컨테이너
 const ThreadContainer = styled.div`
   /* background-color: #20c997; */
-  width: 900px;
+  width: 1000px;
   margin: 0 auto;
   height: 600px;
   overflow-x: hidden;
@@ -100,7 +101,6 @@ const ThreadContainer = styled.div`
 
   // 리스트
 const QList = styled.div`
-  
   /* background-color: green; */
   width: 725px;
   padding: 2rem;
@@ -137,7 +137,7 @@ const QListUserId = styled.div`
 const QListicon = styled.div`
   /* background-color: red; */
   width: 1rem;
-  margin-left: 692px;
+  margin-left: 792px;
   margin-top: -2rem;
 `;
 
@@ -147,6 +147,6 @@ const AnswerCount = styled.div`
   margin: 0 auto;
   width: 3rem;
   text-align: center;
-  margin-left: 748px;
+  margin-left: 845px;
   margin-top: -1.2rem;
 `;

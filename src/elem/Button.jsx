@@ -15,7 +15,6 @@ function Button(props) {
     borderRadius,
     _hoverColor,
     _hoverBgColor,
-    /* _marginLeft, */
     _flexDirection
   } = props;
 
@@ -29,7 +28,6 @@ function Button(props) {
     borderRadius,
     _hoverColor,
     _hoverBgColor,
-    /* _marginLeft, */
     _flexDirection
   };
   return (
@@ -51,7 +49,6 @@ Button.defaultProps = {
   _hoverColor: "#ffffff",
   _hoverBgColor: "#292929d7",
   _flexDirection:"column-reverse;"
-  /* _marginLeft:"90%" */
 };
 
 export default Button;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Header from "../Header/HeaderHome";
+import Header from "../Header/Header";
 
 function Layout({ children }) {
   return (
@@ -14,6 +14,6 @@ export default Layout;
 
 const Wrapper = styled.div`
   font-weight: 600;
-  width: 1900px;
+  width: 100%;
   margin: 0 auto;
 `;

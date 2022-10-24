@@ -1,0 +1,70 @@
+{
+  "users": [
+    {
+      "questionId": 1,
+      "userId":1,
+      "nickname": "원선",
+      "title": "잠이란 무엇인가요?",
+      "content": "잠을 꼭 자야하나요? 잠을 안자면 인체에 어떤 영향을 미치죠?",
+      "count": "15"
+    },
+    {
+      "questionId":2,
+      "userId":2,
+      "nickname":"준혁",
+      "title": "FE분들이랑 어떻게 해야 협업을 잘 할까요?",
+      "content": "",
+      "count": "12"
+    },
+    {
+      "questionId":3,
+      "userId":3,
+      "nickname": "용호",
+      "title": "BE인데 FE배워서 풀스택하고 싶습니다. 뭐부터 공부해야 하나요?",
+      "content": "",
+      "count": "8"
+    },
+    {
+      "questionId":4,
+      "userId":4,
+      "nickname":"세준",
+      "title":"FE 면접 질문 100문100답 좋은 답변 채택하겠습니다!",
+      "content": "",
+      "count":"13"
+    },
+    {
+      "questionId":5,
+      "userId":5,
+      "nickname":"민기",
+      "title":"프론트엔드 어떻게 하면 잘할 수 있을까요?",
+      "content": "",
+      "count":"10"
+    },
+    {
+      "questionId":6,
+      "userId":6,
+      "nickname":"민기",
+      "title":"testtesttesttesttesttesttesttesttesttesttesttest",
+      "content": "",
+      "count":"10"
+    },
+    {
+      "questionId":7,
+      "userId":7,
+      "nickname":"민기",
+      "title":"testtesttesttesttesttesttesttesttesttesttesttest",
+      "content": "",
+      "count":"10"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

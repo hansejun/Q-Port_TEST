@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "../components/Layout/Layout";
@@ -6,8 +7,9 @@ import QContainer from "../components/Question/QContainer";
 import Button from "../elem/Button";
 import { FlexBetweenBox } from "../styles/flex";
 import AnswerSvg from "../styles/svg/AnswerSvg";
-function QuestionDetail() {
 
+function QuestionDetail() {
+const Q = useSelector((state)=> state.questions.users)
   return (
     <Layout>
       <Wrapper as="main">
@@ -15,7 +17,7 @@ function QuestionDetail() {
         <AnswerContainer>
           <AnswerBtn>
             <span>여러분의 답변이 김지식님에게 큰 도움이 됩니다.</span>
-            <Link>
+            <Link to={`/questions/${Q.questionId}/write`}>
               <Button {...btnStyle}>답변하기</Button>
             </Link>
           </AnswerBtn>
