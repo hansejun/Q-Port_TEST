@@ -1,6 +1,6 @@
 import Layout from "../components/Layout/Layout";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 import mainbg from "../static/mainbg.png";
 import lens from "../static/lens.png";
@@ -9,22 +9,32 @@ import me2 from "../static/memoji2.png";
 import me3 from "../static/memoji3.png";
 import me4 from "../static/memoji4.png";
 import me5 from "../static/memoji5.png";
+import me6 from "../static/memoji6.png";
+import me7 from "../static/memoji7.png";
+import me8 from "../static/memoji8.png";
+import me9 from "../static/memoji9.png";
+import me10 from "../static/memoji10.png";
 import { Link } from "react-router-dom";
+import { useEffect } from 'react';
+import { readQuestions } from '../redux/modules/questions';
 
 
 function Home() {
-  const Q = useSelector((state) => state.questions.users);
-  const counter = Q.map((search) => search.count);
+  const dispatch = useDispatch();
+  const Q = useSelector((state) => state.questions.questions);
+  console.log("Q",Q)
+  /* const counter = Q.map((search) => search.count);
   console.log("counter", counter);
-  const Rank = counter.sort((a, b) => b - a);
-  console.log("Rank", Rank);
-
-  const backgroundArr = [me1, me2, me3, me4, me5];
+  const Rank = counter.sort((a, b) => b - a); */
+  
+  const backgroundArr = [me1, me2, me3, me4, me5, me6, me7, me8, me9, me10];
   const randomIndex = Math.floor(Math.random() * backgroundArr.length);
   const backgroundImg = backgroundArr[randomIndex];
-  console.log(backgroundImg);
+  /* console.log(backgroundImg); */
 
-  
+  useEffect(()=>{
+    dispatch(readQuestions())
+  }, [dispatch])
 
   return (
     <Layout>
@@ -41,8 +51,8 @@ function Home() {
         <StyleLink to="/questions/:questionId/write">
           <A>WriteAnswer</A>
         </StyleLink>
-        <StyleLink to="/profile/edit">
-          <A>ProfileEdit</A>
+        <StyleLink to="/questionsform">
+          <A>questionsform</A>
         </StyleLink>
       </Widgets>
       <Ranker>
@@ -86,9 +96,10 @@ const Box = styled.div`
 // 랜덤 이미지
 const RandomImg = styled.div`
   position: absolute;
-  margin-top: 35px;
-  width: 170px;
-  height: 166px;
+  margin-top: 42px;
+  width: 171px;
+  height: 159px;
+  background-size: 100%;
   margin-left: 55%;
 `;
 

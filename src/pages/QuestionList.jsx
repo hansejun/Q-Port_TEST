@@ -1,13 +1,21 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Layout from "../components/Layout/Layout";
 import styled from "styled-components";
+import { TfiEye } from "react-icons/tfi";
 import { AiOutlineCheckCircle } from "react-icons/ai";
 import { AiFillCheckCircle } from "react-icons/ai";
 import { BsChat } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { readQuestions } from '../redux/modules/questions';
+import { useEffect } from 'react';
 
 function Question() {
-  const Q = useSelector((state) => state.questions.users);
+  const dispatch = useDispatch();
+  const Q = useSelector((state) => state.questions.questions);
+
+  useEffect(()=>{
+    dispatch(readQuestions())
+  },[dispatch])
 
   return (
     <Layout>
@@ -17,15 +25,19 @@ function Question() {
         <Threadicon>
           <AiOutlineCheckCircle />
           <div>
+          <TfiEye/>
+          </div>
+          <div>
             <BsChat />
           </div>
         </Threadicon>
       </ThreadGroup>
+      <Line/>
       <ThreadContainer>
         {Q.map((Q) => {
           return (
             <QList>
-              <QListTitle to={`/questions/${Q.questionId}`}>
+              <QListTitle to={`/questions/${Q.id}`}>
                 <A>{Q.title}</A>
               </QListTitle>
               <QListWriter>
@@ -36,8 +48,11 @@ function Question() {
                 {/* <AiOutlineCheckCircle/> */}
                 <AiFillCheckCircle />
               </QListicon>
+              <ViewCount>
+                <p>1</p>
+              </ViewCount>
               <AnswerCount>
-                <p>count</p>
+                <p>1</p>
               </AnswerCount>
             </QList>
           );
@@ -59,7 +74,6 @@ const PageTitle = styled.div`
 `;
   // 스레드 타이틀  
 const ThreadTitle = styled.div`
-  
   padding: 1rem;
   font-size: 1.5rem;
 `;
@@ -76,10 +90,16 @@ const ThreadGroup = styled.div`
 `;
   // 스레드 아이콘
 const Threadicon = styled.div`
-  
   display: flex;
   margin-right: 4.5rem;
   gap: 3rem;
+`;
+
+  // 보더 라인
+const Line = styled.div`
+  width:1000px;
+  margin: 0 auto;
+  border-bottom: 1px solid #e9ecef;
 `;
 
   // 스레드 컨테이너
@@ -137,16 +157,26 @@ const QListUserId = styled.div`
 const QListicon = styled.div`
   /* background-color: red; */
   width: 1rem;
-  margin-left: 792px;
+  margin-left: 722px;
   margin-top: -2rem;
 `;
 
-// 채택 카운트
+// 뷰 카운트
+const ViewCount = styled.div`
+  /* background-color: blue; */
+  margin: 0 auto;
+  width: 3rem;
+  text-align: center;
+  margin-left: 775px;
+  margin-top: -1.2rem;
+`;
+
+// 셀렉트 카운트
 const AnswerCount = styled.div`
   /* background-color: blue; */
   margin: 0 auto;
   width: 3rem;
   text-align: center;
   margin-left: 845px;
-  margin-top: -1.2rem;
+  margin-top: -1.05rem;
 `;

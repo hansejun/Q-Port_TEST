@@ -1,82 +1,71 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
-
+const BASE_URL = "http://localhost:3001/questions";
 
 const initialState = {
-  users: [
-    {
-      questionId: 1,
-      userId:1,
-      nickname: "원선",
-      title: "잠이란 무엇인가요?",
-      content: "잠을 꼭 자야하나요? 잠을 안자면 인체에 어떤 영향을 미치죠?",
-      count: "15"
-    },
-    {
-      questionId: 1,
-      userId:1,
-      nickname: "원선",
-      title: "잠이란 무엇인가요?",
-      content: "잠을 꼭 자야하나요? 잠을 안자면 인체에 어떤 영향을 미치죠?",
-      count: "15"
-    },
-    {
-      questionId: 1,
-      userId:1,
-      nickname: "원선",
-      title: "잠이란 무엇인가요?",
-      content: "잠을 꼭 자야하나요? 잠을 안자면 인체에 어떤 영향을 미치죠?",
-      count: "15"
-    },
-    {
-      questionId: 1,
-      userId:1,
-      nickname: "원선",
-      title: "잠이란 무엇인가요?",
-      content: "잠을 꼭 자야하나요? 잠을 안자면 인체에 어떤 영향을 미치죠?",
-      count: "15"
-    },
-    {
-      questionId: 1,
-      userId:1,
-      nickname: "원선",
-      title: "잠이란 무엇인가요?",
-      content: "잠을 꼭 자야하나요? 잠을 안자면 인체에 어떤 영향을 미치죠?",
-      count: "15"
-    },
-    {
-      questionId: 1,
-      userId:1,
-      nickname: "원선",
-      title: "잠이란 무엇인가요?",
-      content: "잠을 꼭 자야하나요? 잠을 안자면 인체에 어떤 영향을 미치죠?",
-      count: "15"
-    },
-    {
-      questionId: 1,
-      userId:1,
-      nickname: "원선",
-      title: "잠이란 무엇인가요?",
-      content: "잠을 꼭 자야하나요? 잠을 안자면 인체에 어떤 영향을 미치죠?",
-      count: "15"
-    },
-    {
-      questionId: 1,
-      userId:1,
-      nickname: "원선",
-      title: "잠이란 무엇인가요?",
-      content: "잠을 꼭 자야하나요? 잠을 안자면 인체에 어떤 영향을 미치죠?",
-      count: "15"
-    }
-
-  ]
+  questions: [],
+  formdatas: [],
+  isLoding: false,
+  error: null,
 };
+
+export const addQuestion = createAsyncThunk(
+  "questions/addQuestion",
+  async (payload, thunkApi) => {
+    try {
+      console.log(payload);
+      const { data } = await axios.post(BASE_URL, payload);
+      console.log(data);
+      return thunkApi.fulfillWithValue(data);
+    } catch (e) {
+      return thunkApi.rejectWithValue(e);
+    }
+  }
+);
+
+export const readQuestions = createAsyncThunk(
+  "questions/readQuestions",
+  async (payload, thunkApi) => {
+    try {
+      const { data } = await axios.post(BASE_URL);
+      console.log(data)
+      return thunkApi.fulfillWithValue(data);
+    } catch (e) {
+      return thunkApi.rejectWithValue(e);
+    }
+  }
+);
+
 
 const questionsSlice = createSlice({
   name: "questions",
   initialState,
   reducers: {},
-  extrareducers: {},
+  extraReducers: {
+    [addQuestion.pending]: (state) => {
+      state.isLoding = true;
+    },
+    [addQuestion.fulfilled]: (state, action) => {
+      state.isLoding = false;
+      state.questions.push(action.payload);
+    },
+    [addQuestion.rejected]: (state, action) => {
+      state.isLoding = false;
+      state.error = action.payload;
+    },
+    [readQuestions.pending]: (state) => {
+      state.isLoding = true;
+    },
+    [readQuestions.fulfilled]: (state, action) => {
+      state.isLoding = false;
+      state.questions = action.payload;
+    },
+    [readQuestions.rejected]: (state, action) => {
+      state.isLoding = false;
+      state.error = action.payload;
+    },
+  },
 });
 
 export default questionsSlice.reducer;
