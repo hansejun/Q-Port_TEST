@@ -1,3 +1,4 @@
 # dependencies
 /node_modules
 src/components/Layout/Layout-Home.jsx
+.env
