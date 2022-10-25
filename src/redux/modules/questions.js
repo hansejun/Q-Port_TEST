@@ -29,12 +29,6 @@ export const readQuestion = createAsyncThunk(
   }
 );
 
-const initialState = {
-  questions: [],
-  question: {},
-  isLoading: false,
-  error: null,
-};
 /** 질문글 추가하는 함수 */
 export const addQuestion = createAsyncThunk(
   "questions/addQuestion",
@@ -64,6 +58,12 @@ export const readQuestions = createAsyncThunk(
   }
 );
 
+const initialState = {
+  questions: [],
+  question: {},
+  isLoading: false,
+  error: null,
+};
 const questionsSlice = createSlice({
   name: "questions",
   initialState,
