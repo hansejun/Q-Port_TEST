@@ -23,11 +23,13 @@ function Join() {
       );
       return;
     }
+
     const info = {
       email: inputs.email,
       nickname: inputs.nickname,
       password: inputs.password,
       confirm: inputs.confirm,
+
       //avatar: "https://avatars.dicebear.com/api/identicon/:seed.svg",
       //score: 0,
     };

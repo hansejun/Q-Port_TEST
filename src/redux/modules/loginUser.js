@@ -4,6 +4,7 @@ import axios from "axios";
 const BASE_URL = "http://localhost:3001";
 //onst BASE_URL = "http://43.201.84.98/";
 
+/** user를 추가하는 요청 */
 export const addUser = createAsyncThunk(
   "users/addUser",
   async (payload, thunkApi) => {
