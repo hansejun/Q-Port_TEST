@@ -6,7 +6,10 @@ import CheckSvg from "../../styles/svg/CheckSvg";
 import CommentSvg from "../../styles/svg/CommentSvg";
 import { Link } from "react-router-dom";
 import timeCheck from "../../utils/timeCheck";
+import { useSelector } from "react-redux";
+
 function AnswerItem({ answer, selectedId }) {
+  const { user } = useSelector((state) => state.users);
   return (
     <ItemBox id={answer.id + ""}>
       <Link to={`/profile/${answer?.userId}`}>
@@ -37,7 +40,11 @@ function AnswerItem({ answer, selectedId }) {
             <CommentSvg /> 2
           </span>
         </div>
-        <Button {...btnStyle}>채택하기</Button>
+        <div>
+          <DeleteBtn>삭제</DeleteBtn>
+          <EditBtn>수정</EditBtn>
+          <SelectBtn>채택하기</SelectBtn>
+        </div>
       </ItemBtns>
     </ItemBox>
   );
@@ -130,7 +137,7 @@ const ItemBtns = styled.div`
   align-items: center;
   padding: 1rem 3rem;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
-
+  min-height: 4rem;
   div {
     display: flex;
     span {
@@ -146,4 +153,16 @@ const ItemBtns = styled.div`
       }
     }
   }
+  div:last-child {
+    button {
+      width: 5rem;
+      height: 2.5rem;
+
+      margin-left: 0rem;
+    }
+  }
 `;
+
+const EditBtn = styled.button``;
+const SelectBtn = styled.button``;
+const DeleteBtn = styled.button``;

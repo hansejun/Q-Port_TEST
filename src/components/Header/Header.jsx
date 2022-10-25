@@ -1,11 +1,13 @@
-import { memo, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { readUser } from "../../redux/modules/loginUser";
 import { removeCookieToken } from "../../shared/Cookie";
 import UseUser from "../hooks/useUser";
+import Logo1 from "../../static/logo.png";
+import { getUser } from "../../redux/modules/loginUser";
 
+// import Logo2 from "../../static/logo2.png";
 function Header() {
   const user = UseUser();
   //const cookie = getCookieToken();
@@ -30,7 +32,8 @@ function Header() {
   }, [pathname, user, navigate]);
 
   useEffect(() => {
-    if (user) dispatch(readUser(user?.id));
+    dispatch(getUser(user));
+    console.log("로그인 유저 정보 가져오기!");
   }, [dispatch, user]);
 
   const onClick = () => {
@@ -41,7 +44,9 @@ function Header() {
   return (
     <HeaderWrapper as={"header"}>
       <nav>
-        <span>Logo</span>
+        <Link to="/">
+          <Logo src={Logo1} />
+        </Link>
         <ul>
           {!user ? (
             <>
@@ -89,15 +94,14 @@ const HeaderWrapper = styled.div`
       }
       li {
         font-size: 0.8rem;
-        margin-left: 1rem;
-        font-weight: 400;
+        margin-left: 1.2rem;
+        font-weight: 500;
         cursor: pointer;
       }
     }
   }
 `;
 
-// const Logo = styled.img`
-//   width: 4rem;
-//   color: white;
-// `;
+const Logo = styled.img`
+  width: 4rem;
+`;
