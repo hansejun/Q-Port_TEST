@@ -58,6 +58,18 @@ export const readQuestions = createAsyncThunk(
   }
 );
 
+export const removeQuestion = createAsyncThunk(
+  "questions/removeQuestion",
+  async (payload, thunkApi) => {
+    try {
+      await axios.delete(`${BASE_URL}/${payload}`);
+      return thunkApi.fulfillWithValue(payload);
+    } catch (e) {
+      return thunkApi.rejectWithValue(e);
+    }
+  }
+);
+
 const initialState = {
   questions: [],
   question: {},
@@ -108,6 +120,19 @@ const questionsSlice = createSlice({
       state.questions = action.payload;
     },
     [readQuestions.rejected]: (state, action) => {
+      state.isLoding = false;
+      state.error = action.payload;
+    },
+    [removeQuestion.pending]: (state) => {
+      state.isLoding = true;
+    },
+    [removeQuestion.fulfilled]: (state, action) => {
+      state.isLoding = false;
+      state.questions = state.questions.filter(
+        (question) => question.id !== action.payload
+      );
+    },
+    [removeQuestion.rejected]: (state, action) => {
       state.isLoding = false;
       state.error = action.payload;
     },

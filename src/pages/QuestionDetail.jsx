@@ -15,6 +15,8 @@ function QuestionDetail() {
   const { question } = useSelector((state) => state.questions);
   const { answers } = useSelector((state) => state.answers);
   const { id } = useParams();
+  const { user } = useSelector((state) => state.users);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(readQuestion(+id));
@@ -24,7 +26,7 @@ function QuestionDetail() {
   return (
     <Layout>
       <Wrapper as="main">
-        <QContainer question={question} len={answers.length} />
+        <QContainer question={question} len={answers.length} user={user} />
         <AnswerContainer>
           <AnswerBtn>
             <span>

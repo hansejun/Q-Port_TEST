@@ -95,7 +95,7 @@ const HeaderWrapper = styled.div`
       li {
         font-size: 0.8rem;
         margin-left: 1.2rem;
-        font-weight: 500;
+        font-weight: 400;
         cursor: pointer;
       }
     }

@@ -4,12 +4,25 @@ import { FlexBetweenBox, Flexbox } from "../../styles/flex";
 import HeartSvg from "../../styles/svg/HeartSvg";
 import CheckSvg from "../../styles/svg/CheckSvg";
 import CommentSvg from "../../styles/svg/CommentSvg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import timeCheck from "../../utils/timeCheck";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { removeAnswer } from "../../redux/modules/answers";
 
 function AnswerItem({ answer, selectedId }) {
   const { user } = useSelector((state) => state.users);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const onDelete = () => {
+    const ok = window.confirm("정말로 삭제하시겠습니까?");
+    if (ok) {
+      dispatch(removeAnswer(answer.id));
+      navigate("/questions");
+    } else {
+      return;
+    }
+  };
   return (
     <ItemBox id={answer.id + ""}>
       <Link to={`/profile/${answer?.userId}`}>
@@ -39,23 +52,28 @@ function AnswerItem({ answer, selectedId }) {
           <span>
             <CommentSvg /> 2
           </span>
+          {user.id === answer.id ? (
+            answer.id === selectedId ? null : (
+              <>
+                {" "}
+                <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
+                <EditBtn>수정</EditBtn>
+              </>
+            )
+          ) : null}
         </div>
         <div>
-          <DeleteBtn>삭제</DeleteBtn>
-          <EditBtn>수정</EditBtn>
-          <SelectBtn>채택하기</SelectBtn>
+          {user.id === answer.questionId ? (
+            selectedId ? null : (
+              <SelectBtn>채택하기</SelectBtn>
+            )
+          ) : null}
         </div>
       </ItemBtns>
     </ItemBox>
   );
 }
 export default AnswerItem;
-
-const btnStyle = {
-  _bgColor: "#7298ff",
-  _hoverBgColor: "#4f7dfe",
-  borderRadius: "0",
-};
 
 const ItemBox = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -138,8 +156,9 @@ const ItemBtns = styled.div`
   padding: 1rem 3rem;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   min-height: 4rem;
-  div {
+  div:first-child {
     display: flex;
+    align-items: center;
     span {
       display: flex;
       align-items: center;
@@ -153,16 +172,26 @@ const ItemBtns = styled.div`
       }
     }
   }
-  div:last-child {
-    button {
-      width: 5rem;
-      height: 2.5rem;
-
-      margin-left: 0rem;
-    }
-  }
 `;
 
-const EditBtn = styled.button``;
-const SelectBtn = styled.button``;
-const DeleteBtn = styled.button``;
+const SelectBtn = styled.button`
+  background-color: #7298ff;
+  color: white;
+  width: 6rem;
+  height: 2.3rem;
+  margin-left: 1.2rem;
+  font-size: 0.8rem;
+  &:hover {
+    background-color: #4f7dfe;
+  }
+`;
+const EditBtn = styled.button`
+  &:hover {
+    color: #7298ff;
+  }
+`;
+const DeleteBtn = styled.button`
+  &:hover {
+    color: red;
+  }
+`;

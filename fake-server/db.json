@@ -71,10 +71,10 @@
       "avatar": "https://avatars.dicebear.com/api/identicon/:seed1.svg"
     },
     {
-      "id": 4,
+      "id": 5,
       "userId": 1,
-      "title": "이거 뭔가요",
-      "content": "왓 이즈 디스",
+      "title": "아니 왜 에러나는거죠?",
+      "content": "자꾸 에러가 발생합니다.",
       "imgUrl": "https://qportminiprojectmini.s3.ap-northeast-2.amazonaws.com/post/1666518459090.gif",
       "selectedAnswer": 0,
       "createdAt": "1666519926650",
@@ -83,8 +83,8 @@
       "avatar": "https://avatars.dicebear.com/api/identicon/:seed1.svg"
     },
     {
-      "id": 5,
-      "userId": 1,
+      "id": 6,
+      "userId": 4,
       "title": "아니 왜 에러나는거죠?",
       "content": "자꾸 에러가 발생합니다.",
       "imgUrl": "https://qportminiprojectmini.s3.ap-northeast-2.amazonaws.com/post/1666518459090.gif",

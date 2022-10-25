@@ -1,10 +1,24 @@
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { removeQuestion } from "../../redux/modules/questions";
 
 import { Flexbox } from "../../styles/flex";
 import QuestionSvg from "../../styles/svg/QuestionSvg";
 import getDate from "../../utils/getDate";
-function QContainer({ question, len }) {
+function QContainer({ question, len, user }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const onDelete = () => {
+    const ok = window.confirm("정말로 삭제하시겠습니까?");
+    if (ok) {
+      dispatch(removeQuestion(question.id));
+      navigate("/questions");
+    } else {
+      return;
+    }
+  };
   return (
     <Container as="section">
       <QHeader>
@@ -25,6 +39,18 @@ function QContainer({ question, len }) {
         <div>
           <span>{question && getDate(+question?.createdAt || Date.now())}</span>
           <span>답변수 {len}</span>
+          {user.id === question.userId ? (
+            question.selectedAnswer ? null : (
+              <>
+                <EditBtn
+                  onClick={() => navigate(`/questions/${question.id}/edit`)}
+                >
+                  수정
+                </EditBtn>
+                <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
+              </>
+            )
+          ) : null}
         </div>
       </QFooter>
     </Container>
@@ -94,11 +120,24 @@ const QFooter = styled.div`
   }
   div:last-child {
     display: flex;
+    align-items: center;
     font-size: 0.8rem;
     color: rgba(0, 0, 0, 0.5);
     font-weight: 500;
     span:first-child {
       margin-right: 1rem;
     }
+  }
+`;
+const DeleteBtn = styled.button`
+  &:hover {
+    color: red;
+  }
+`;
+
+const EditBtn = styled.button`
+  margin-left: 1.2rem;
+  &:hover {
+    color: #7298ff;
   }
 `;
