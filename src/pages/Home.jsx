@@ -36,44 +36,46 @@ function Home() {
   }, [dispatch]);
 
   return (
-    <Layout>
+    <>
       <Box>
         <RandomImg style={{ backgroundImage: `url(${backgroundImg})` }} />
       </Box>
-      <Input type="search" placeholder="Search" />
-      <Widgets>
-        <Label>Qport Top 3</Label>
-        <VerticalLine />
-        <StyleLink to="/questions">
-          <A>questions</A>
-        </StyleLink>
-        <StyleLink to="/questions/:questionId/write">
-          <A>WriteAnswer</A>
-        </StyleLink>
-        <StyleLink to="/questions/form">
-          <A>questionsform</A>
-        </StyleLink>
-      </Widgets>
-      <Ranker>
-        {Q.map((Q, idx) => (
-          <RankList key={idx}>
-            <Avatar
-              style={{
-                boxSizing: "border-box",
-                width: 50,
-                height: 50,
-                backgroundColor: "#e9ecef",
-                margin: "0 auto",
-                marginTop: "30px",
-              }}
-              alt=" "
-              src=" "
-            />
-            <NickName>{Q.nickname}</NickName>
-          </RankList>
-        ))}
-      </Ranker>
-    </Layout>
+      <Layout>
+        <Input type="search" placeholder="Search" />
+        <Widgets>
+          <Label>Qport Top 3</Label>
+          <VerticalLine />
+          <StyleLink to="/questions">
+            <A>questions</A>
+          </StyleLink>
+          <StyleLink to="/questions/:questionId/write">
+            <A>WriteAnswer</A>
+          </StyleLink>
+          <StyleLink to="/questions/form">
+            <A>questionsform</A>
+          </StyleLink>
+        </Widgets>
+        <Ranker>
+          {Q.map((Q, idx) => (
+            <RankList key={idx}>
+              <Avatar
+                style={{
+                  boxSizing: "border-box",
+                  width: 50,
+                  height: 50,
+                  backgroundColor: "#e9ecef",
+                  margin: "0 auto",
+                  marginTop: "30px",
+                }}
+                alt=" "
+                src=" "
+              />
+              <NickName>{Q.nickname}</NickName>
+            </RankList>
+          ))}
+        </Ranker>
+      </Layout>
+    </>
   );
 }
 
@@ -104,12 +106,13 @@ const RandomImg = styled.div`
 
 // 서치 인풋박스
 const Input = styled.input`
+  display: block;
   overflow: auto;
   border: none;
-  margin-left: 25%;
   margin-top: 5%;
-  width: 50%;
+  width: 70%;
   height: 50px;
+  margin: 0 auto;
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.09);
   background-image: url("${lens}");
   background-repeat: no-repeat;
@@ -133,7 +136,7 @@ const Input = styled.input`
 const Widgets = styled.div`
   background-color: #000000;
   border: 1px solid black;
-  width: 60%;
+  width: 80%;
   padding: 20px;
   display: flex;
   align-items: center;
@@ -157,7 +160,7 @@ const VerticalLine = styled.div`
 //  랭크 위치
 const Ranker = styled.div`
   margin: 0 auto;
-  width: 60%;
+  width: 80%;
   height: 80%;
   padding: 2.5%;
   margin: 0 auto;
