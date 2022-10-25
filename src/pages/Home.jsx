@@ -50,7 +50,7 @@ function Home() {
         <StyleLink to="/questions/:questionId/write">
           <A>WriteAnswer</A>
         </StyleLink>
-        <StyleLink to="/questionsform">
+        <StyleLink to="/questions/form">
           <A>questionsform</A>
         </StyleLink>
       </Widgets>
