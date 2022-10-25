@@ -1,26 +1,32 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function UserInfo() {
+function UserInfo({ questionsLen = 0, answersLen = 0, profile, user }) {
   return (
     <UserContainer as="section">
       <UserImg>
-        <div />
+        <img src={profile?.avatar} alt={profile.nickname} />
       </UserImg>
       <UserInfos>
         <UserProfile>
-          <span>김지식</span>
-          <button>프로필 편집</button>
+          <span>{profile?.nickname}</span>
+          {profile.id === user.id ? (
+            <Link to={`/profile/${user.id}/edit`}>프로필 편집</Link>
+          ) : null}
         </UserProfile>
         <UserLog>
           <span>
-            질문 <Strong as="strong">21</Strong>
+            질문 <Strong as="strong">{questionsLen}</Strong>
           </span>
           <span>
-            답변 <Strong as="strong">5</Strong>
+            답변 <Strong as="strong">{answersLen}</Strong>
+          </span>
+          <span>
+            내공 <Strong as="strong">{user.score}</Strong>
           </span>
         </UserLog>
         <UserDetail>
-          <span>qwewqe@naver.com</span>
+          <span>{profile?.email}</span>
         </UserDetail>
       </UserInfos>
     </UserContainer>
@@ -37,11 +43,12 @@ const UserContainer = styled.div`
 `;
 
 const UserImg = styled.div`
-  div {
+  img {
     width: 8rem;
     height: 8rem;
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 50%;
+    object-fit: cover;
   }
   margin-right: 6rem;
 `;
@@ -53,16 +60,18 @@ const UserInfos = styled.div`
 const UserProfile = styled.div`
   display: flex;
   align-items: center;
+
   span {
     font-size: 1.3rem;
     font-weight: 400;
     margin-right: 1rem;
   }
-  button {
+  a {
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    padding: 0.3rem;
+    padding: 0.4rem;
     font-weight: 500;
+    font-size: 0.9rem;
   }
   margin-bottom: 1rem;
 `;
@@ -72,6 +81,11 @@ const UserLog = styled.div`
   & > span {
     font-size: 0.9rem;
     margin-right: 1rem;
+    &:last-child {
+      strong:last-child {
+        color: #7298ff;
+      }
+    }
   }
 `;
 const UserDetail = styled.div`

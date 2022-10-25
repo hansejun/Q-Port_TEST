@@ -1,15 +1,23 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import CommentSvg from "../../styles/svg/CommentSvg";
+import timeCheck from "../../utils/timeCheck";
 
-function Item({ isAnswer }) {
+function Item({ isAnswer, data }) {
+  //console.log(data);
   return (
     <DataContainer>
-      <Link to={"/questions/:id"}>
-        <p>잠이 안옵니다</p>
+      <Link
+        to={
+          !isAnswer ? `/questions/${data.id}` : `/questions/${data.questionId}`
+        }
+        state={{ scrollId: !isAnswer ? data.id : null }}
+      >
+        <p>{!isAnswer ? data.title : data.content}</p>
       </Link>
       <DataContent isAnswer={isAnswer}>
-        <span>채택 완료</span>
+        {!isAnswer}
+        <span>{!data.selectedAnswer ? "진행중" : "채택 완료"}</span>
         {isAnswer ? null : (
           <span>
             <CommentSvg />3
@@ -17,7 +25,7 @@ function Item({ isAnswer }) {
         )}
       </DataContent>
       <DataDate>
-        <span>1시간 전</span>
+        <span>{timeCheck(+data.createdAt)}</span>
       </DataDate>
     </DataContainer>
   );

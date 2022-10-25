@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { addQuestion } from "../redux/modules/questions";
 import { useState } from "react";
 
-
 function QuestionForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,13 +34,12 @@ function QuestionForm() {
   const formData = new FormData();
 
   const onFileChange = (e) => {
-    console.log(e.target.files[0])
-    if(e.target && e.target.files[0])
-    formData.append("file", e.target.files[0]);
-  }
-  
-  
+    console.log(e.target.files[0]);
+    if (e.target && e.target.files[0])
+      formData.append("file", e.target.files[0]);
+  };
 
+  const submitFileData = () => {};
   return (
     <Layout>
       <PageTitle>QuestionForm</PageTitle>
@@ -67,16 +65,18 @@ function QuestionForm() {
             maxLength={200}
           />
           <AddBox>
-          <CreateImg for="file" name="file_upload" >이미지 업로드</CreateImg>
-        <StyleInput
-          type="file"
-          id="file"
-          style={{ display: "none" }}
-          accept="image/jpeg, image/png"
-          onChange={onFileChange}
-          onClick={SubmitFileData}
-        />
-          <StyleButton>질문 추가</StyleButton>
+            <CreateImg for="file" name="file_upload">
+              이미지 업로드
+            </CreateImg>
+            <StyleInput
+              type="file"
+              id="file"
+              style={{ display: "none" }}
+              accept="image/jpeg, image/png"
+              onChange={onFileChange}
+              onClick={submitFileData}
+            />
+            <StyleButton>질문 추가</StyleButton>
           </AddBox>
         </div>
       </FormContainer>
@@ -158,8 +158,7 @@ const CreateImg = styled.label`
   font-size: 14px;
 `;
 
-const StyleInput = styled.input`
-`;
+const StyleInput = styled.input``;
 
 const StyleButton = styled.button`
   border: 1px solid #e9ecef;

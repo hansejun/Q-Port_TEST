@@ -1,33 +1,30 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
 import { Flexbox } from "../../styles/flex";
 import QuestionSvg from "../../styles/svg/QuestionSvg";
-function QContainer() {
+import getDate from "../../utils/getDate";
+function QContainer({ question, len }) {
   return (
     <Container as="section">
       <QHeader>
         <QuestionSvg />
         <div>
-          <span>질문 올립니다.</span>
+          <span>{question?.title}</span>
         </div>
       </QHeader>
       <QContent>
-        <p>
-          왜 일요일마다 WIL 쓰라고 하는거죠?왜 일요일마다 WIL 쓰라고 하는거죠?왜
-          일요일마다 WIL 쓰라고 하는거죠?왜 일요일마다 WIL 쓰라고 하는거죠?왜
-          일요일마다 WIL 쓰라고 하는거죠?왜 일요일마다 WIL 쓰라고 하는거죠?왜
-          일요일마다 WIL 쓰라고 하는거죠?
-        </p>
-        <div>이미지</div>
+        <p>{question?.content}</p>
+        {question?.imgUrl ? <img src={question.imgUrl} alt="" /> : null}
       </QContent>
       <QFooter>
-        <Link to={"/profile/:id"}>
+        <Link to={`/profile/${question.userId}`}>
           <div />
-          <span>김지식</span>
+          <span>{question?.nickname}</span>
         </Link>
         <div>
-          <span>2022.10.20</span>
-          <span>답변수 2</span>
+          <span>{question && getDate(+question?.createdAt || Date.now())}</span>
+          <span>답변수 {len}</span>
         </div>
       </QFooter>
     </Container>
@@ -68,6 +65,9 @@ const QContent = styled.div`
     width: 30%;
     aspect-ratio: 1/1;
     background-color: rgba(0, 0, 0, 0.2);
+  }
+  img {
+    margin-top: 2rem;
   }
 `;
 

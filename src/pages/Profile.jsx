@@ -1,20 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import UseUser from "../components/hooks/useUser";
 import Layout from "../components/Layout/Layout";
 import List from "../components/profile/List";
 import UserInfo from "../components/profile/UserInfo";
+import { readUserAnswers } from "../redux/modules/answers";
+import { readProfileUser } from "../redux/modules/loginUser";
+import { readUserQuestions } from "../redux/modules/questions";
 import AnswerSvg from "../styles/svg/AnswerSvg";
 import QuestionSvg from "../styles/svg/QuestionSvg";
 
 function Profile() {
   const [isAnswer, setIsAnswer] = useState(false);
+  const { id } = useParams();
+  const { questions } = useSelector((state) => state.questions);
+  const { answers } = useSelector((state) => state.answers);
+  const { profile } = useSelector((state) => state.users);
+  // 현재 로그인한 유저 정보 가져오기
+  const user = UseUser();
+  const dispatch = useDispatch();
+
   const toggleAnswer = () => {
     setIsAnswer((prev) => !prev);
   };
+
+  useEffect(() => {
+    dispatch(readUserQuestions(+id));
+    dispatch(readUserAnswers(+id));
+  }, [dispatch, id, isAnswer]);
+
+  useEffect(() => {
+    dispatch(readProfileUser(+id));
+  }, [dispatch, id]);
+
   return (
     <Layout>
       <ProfileContainer as="main">
-        <UserInfo />
+        <UserInfo
+          questionsLen={questions.length}
+          profile={profile}
+          answersLen={answers.length}
+          user={user}
+        />
         <DataContainer>
           <Buttons>
             <Button onClick={toggleAnswer} isAnswer={isAnswer}>
@@ -26,7 +55,7 @@ function Profile() {
               <span>답변글</span>
             </Button>
           </Buttons>
-          <List isAnswer={isAnswer} />
+          <List isAnswer={isAnswer} data={!isAnswer ? questions : answers} />
         </DataContainer>
       </ProfileContainer>
     </Layout>

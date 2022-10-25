@@ -1,0 +1,147 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "qwer123@naver.com",
+      "nickname": "나먕주밀탱크",
+      "password": "qwer",
+      "avatar": "https://avatars.dicebear.com/api/identicon/:seed.svg",
+      "score": 0
+    },
+    {
+      "id": 2,
+      "email": "qwer1234@naver.com",
+      "nickname": "도마동 밀탱크",
+      "password": "qwer",
+      "avatar": "https://avatars.dicebear.com/api/identicon/:seed1.svg",
+      "score": 0
+    },
+    {
+      "id": 3,
+      "email": "qwer12345@naver.com",
+      "nickname": "무악재 밀탱크",
+      "password": "qwer",
+      "avatar": "https://avatars.dicebear.com/api/identicon/:seed2.svg",
+      "score": 0
+    },
+    {
+      "email": "tpwnszja2@naver.com",
+      "nickname": "김배재",
+      "password": "qwer",
+      "avatar": "https://avatars.dicebear.com/api/identicon/:seed.svg",
+      "score": 0,
+      "id": 4
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "userId": 1,
+      "title": "이거 뭐죠?",
+      "content": "이거 상태가 이상합니다.",
+      "imgUrl": "https://qportminiprojectmini.s3.ap-northeast-2.amazonaws.com/post/1666518459090.gif",
+      "selectedAnswer": 3,
+      "createdAt": "1666519926650",
+      "updatedAt": "1666519926650",
+      "nickname": "나먕주밀탱크",
+      "avatar": "https://avatars.dicebear.com/api/identicon/:seed.svg"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "title": "상태가 이상합니다.",
+      "content": "아이유 입니다.",
+      "imgUrl": "https://qportminiprojectmini.s3.ap-northeast-2.amazonaws.com/post/1666518459090.gif",
+      "selectedAnswer": 0,
+      "createdAt": "1666519926650",
+      "updatedAt": "1666519926650",
+      "nickname": "도마동 밀탱크",
+      "avatar": "https://avatars.dicebear.com/api/identicon/:seed1.svg"
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "title": "배가 고픈데 어떡하죠?",
+      "content": "배고파 배고파",
+      "imgUrl": "https://qportminiprojectmini.s3.ap-northeast-2.amazonaws.com/post/1666518459090.gif",
+      "selectedAnswer": 0,
+      "createdAt": "1666519926650",
+      "updatedAt": "1666519926650",
+      "nickname": "무악재 밀탱크",
+      "avatar": "https://avatars.dicebear.com/api/identicon/:seed1.svg"
+    },
+    {
+      "id": 4,
+      "userId": 1,
+      "title": "이거 뭔가요",
+      "content": "왓 이즈 디스",
+      "imgUrl": "https://qportminiprojectmini.s3.ap-northeast-2.amazonaws.com/post/1666518459090.gif",
+      "selectedAnswer": 0,
+      "createdAt": "1666519926650",
+      "updatedAt": "1666519926650",
+      "nickname": "무악재 밀탱크",
+      "avatar": "https://avatars.dicebear.com/api/identicon/:seed1.svg"
+    },
+    {
+      "id": 5,
+      "userId": 1,
+      "title": "아니 왜 에러나는거죠?",
+      "content": "자꾸 에러가 발생합니다.",
+      "imgUrl": "https://qportminiprojectmini.s3.ap-northeast-2.amazonaws.com/post/1666518459090.gif",
+      "selectedAnswer": 0,
+      "createdAt": "1666519926650",
+      "updatedAt": "1666519926650",
+      "nickname": "무악재 밀탱크",
+      "avatar": "https://avatars.dicebear.com/api/identicon/:seed1.svg"
+    }
+  ],
+  "answers": [
+    {
+      "id": 1,
+      "questionId": 1,
+      "userId": 1,
+      "content": "그건 그렇게 하시면 안됩니다.",
+      "imgUrl": "https://qportminiprojectmini.s3.ap-northeast-2.amazonaws.com/post/1666518459090.gif",
+      "createdAt": "1666588863557",
+      "updateAt": "1666588863557",
+      "nickname": "나먕주 밀탱크",
+      "avatar": "https://avatars.dicebear.com/api/identicon/:seed.svg"
+    },
+    {
+      "id": 2,
+      "questionId": 1,
+      "userId": 2,
+      "title": "다메요.",
+      "content": "제발 안됩니다.",
+      "imgUrl": "https://avatars.dicebear.com/api/identicon/:seed1.svg",
+      "createdAt": "1666588863557",
+      "updateAt": "1666588863557",
+      "nickname": "도마동 밀탱크",
+      "avatar": "https://avatars.dicebear.com/api/identicon/:seed1.svg"
+    },
+    {
+      "id": 3,
+      "questionId": 1,
+      "userId": 3,
+      "title": "노노노노노노 안됩니다",
+      "content": "제발.... 멈춰....",
+      "imgUrl": "https://avatars.dicebear.com/api/identicon/:seed2.svg",
+      "createdAt": "1666588863557",
+      "updateAt": "1666588863557",
+      "nickname": "무악재 밀탱크",
+      "avatar": "https://avatars.dicebear.com/api/identicon/:seed2.svg"
+    },
+    {
+      "id": 4,
+      "questionId": 1,
+      "userId": 1,
+      "title": "안됩니다!!",
+      "content": "제발.... 멈춰....",
+      "imgUrl": "https://avatars.dicebear.com/api/identicon/:seed2.svg",
+      "createdAt": "1666588863557",
+      "updateAt": "1666588863557",
+      "nickname": "남양주 밀탱크",
+      "avatar": "https://avatars.dicebear.com/api/identicon/:seed2.svg"
+    }
+  ]
+}
