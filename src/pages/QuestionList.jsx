@@ -105,7 +105,8 @@ const Line = styled.div`
 // 스레드 컨테이너
 const ThreadContainer = styled.div`
   /* background-color: #20c997; */
-  width: 1000px;
+  max-width: 1000px;
+  width: 100%;
   margin: 0 auto;
   height: 600px;
   overflow-x: hidden;

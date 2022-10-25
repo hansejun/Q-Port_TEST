@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addQuestion } from "../redux/modules/questions";
 import { useState } from "react";
+import { AiOutlinePlus } from "react-icons/ai";
 
 function QuestionForm() {
   const dispatch = useDispatch();
@@ -31,15 +32,13 @@ function QuestionForm() {
     setInput({ userId: 1, title: "", content: "" });
     navigate("/questions");
   };
-  const formData = new FormData();
 
-  const onFileChange = (e) => {
-    console.log(e.target.files[0]);
-    if (e.target && e.target.files[0])
-      formData.append("file", e.target.files[0]);
+  const [file, setFile] = useState("");
+  const onChangePreView = (e) => {
+    const fileBlob = URL.createObjectURL(e.target.files[0]);
+    setFile(fileBlob);
   };
 
-  const submitFileData = () => {};
   return (
     <Layout>
       <PageTitle>QuestionForm</PageTitle>
@@ -64,21 +63,32 @@ function QuestionForm() {
             placeholder="질문 내용"
             maxLength={200}
           />
-          <AddBox>
-            <CreateImg htmlFor="file" name="file_upload">
-              이미지 업로드
-            </CreateImg>
-            <StyleInput
-              type="file"
-              id="file"
-              style={{ display: "none" }}
-              accept="image/jpeg, image/png"
-              onChange={onFileChange}
-              onClick={submitFileData}
-            />
-            <StyleButton>질문 추가</StyleButton>
-          </AddBox>
+
+          <Title>Upload Flie</Title>
+          <FileBox file={file} setFile={setFile}>
+            <FileCard>
+              <FileInput>
+                <input
+                  type="file"
+                  id="file"
+                  accept="image/*"
+                  onChange={onChangePreView}
+                  /* onClick={submitFileData} */
+                />
+                <button>
+                  <i>
+                    <AiOutlinePlus style={{}} />
+                  </i>
+                  Upload
+                </button>
+              </FileInput>
+              <p>Support files</p>
+              <p>JPG,PNG,GIF</p>
+            </FileCard>
+            <Img src={file} alt={""} />
+          </FileBox>
         </div>
+        <StyleButton>질문 추가</StyleButton>
       </FormContainer>
     </Layout>
   );
@@ -111,7 +121,6 @@ const Line = styled.div`
 const FormContainer = styled.form`
   position: relative;
   margin: 0 auto;
-  margin-top: 2rem;
   width: 1000px;
   height: 800px;
 `;
@@ -121,6 +130,7 @@ const CreateTitle = styled.input`
   width: 60%;
   height: 42px;
   margin: 50px;
+  margin-bottom: 30px;
   padding: 8px 20px 8px 20px;
   border-radius: 0.2rem;
   font-size: 20px;
@@ -139,31 +149,94 @@ const CreateContent = styled.textarea`
   font-weight: bold;
   cursor: text;
 `;
+const FileBox = styled.div`
+  /* background-color: red; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 65%;
+  gap: 10px;
+`;
 
-const AddBox = styled.div`
+const Img = styled.img`
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+`;
+
+const Title = styled.p`
+  font-weight: bold;
+  margin-bottom: 1em;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  margin-left: 50px;
+`;
+
+const FileCard = styled.div`
+  background-color: #edf2f7;
+  border: 3px dashed #cbd5e0;
+  padding: 1em;
+  margin-left: 50px;
+  width: 300px;
+  height: 240px;
   display: flex;
-  width: 230px;
-  margin: 0 auto;
-  margin-left: 42%;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
-const CreateImg = styled.label`
-  border: 1px solid #e9ecef;
-  border-radius: 0.2rem;
-  padding: 15px 8px 8px 8px;
-  width: 130px;
-  height: 42px;
-  cursor: pointer;
-  text-align: center;
-  font-size: 14px;
+const FileInput = styled.div`
+  position: relative;
+  margin-bottom: 1.5em;
+  &:hover {
+    button {
+      background-color: #1482d0;
+    }
+  }
+  input {
+    position: relative;
+    max-width: 200px;
+    height: 46px;
+    z-index: 2;
+    cursor: pointer;
+    opacity: 0;
+  }
+  button {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #0066cc;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    transition: background-color 0.4s;
+    box-shadow: 0px 8px 24px rgba(149, 157, 165, 0.5);
+  }
+  i {
+    width: 1.5em;
+    height: 1.5em;
+    padding: 0.3em;
+    background-color: #efff;
+    color: #1482d0;
+    border-radius: 50%;
+    justify-content: center;
+    margin-right: 0.8em;
+    font-size: 0.8em;
+  }
 `;
-
-const StyleInput = styled.input``;
-
 const StyleButton = styled.button`
   border: 1px solid #e9ecef;
   border-radius: 0.2rem;
   width: 100px;
   height: 42px;
   cursor: pointer;
+  margin-top: 10px;
+  margin-left: 55%;
 `;
