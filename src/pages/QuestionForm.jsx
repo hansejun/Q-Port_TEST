@@ -65,7 +65,7 @@ function QuestionForm() {
             maxLength={200}
           />
           <AddBox>
-            <CreateImg for="file" name="file_upload">
+            <CreateImg htmlfor="file" name="file_upload">
               이미지 업로드
             </CreateImg>
             <StyleInput
