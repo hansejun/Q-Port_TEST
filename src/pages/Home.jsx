@@ -15,26 +15,25 @@ import me8 from "../static/memoji8.png";
 import me9 from "../static/memoji9.png";
 import me10 from "../static/memoji10.png";
 import { Link } from "react-router-dom";
-import { useEffect } from 'react';
-import { readQuestions } from '../redux/modules/questions';
-
+import { useEffect } from "react";
+import { readQuestions } from "../redux/modules/questions";
 
 function Home() {
   const dispatch = useDispatch();
   const Q = useSelector((state) => state.questions.questions);
-  console.log("Q",Q)
+  console.log("Q", Q);
   /* const counter = Q.map((search) => search.count);
   console.log("counter", counter);
   const Rank = counter.sort((a, b) => b - a); */
-  
+
   const backgroundArr = [me1, me2, me3, me4, me5, me6, me7, me8, me9, me10];
   const randomIndex = Math.floor(Math.random() * backgroundArr.length);
   const backgroundImg = backgroundArr[randomIndex];
   /* console.log(backgroundImg); */
 
-  useEffect(()=>{
-    dispatch(readQuestions())
-  }, [dispatch])
+  useEffect(() => {
+    dispatch(readQuestions());
+  }, [dispatch]);
 
   return (
     <Layout>
@@ -56,8 +55,8 @@ function Home() {
         </StyleLink>
       </Widgets>
       <Ranker>
-        {Q.map((Q) => (
-          <RankList>
+        {Q.map((Q, idx) => (
+          <RankList key={idx}>
             <Avatar
               style={{
                 boxSizing: "border-box",
@@ -187,7 +186,7 @@ const StyleLink = styled(Link)`
 `;
 
 // a 태그
-const A = styled.a`
+const A = styled.span`
   color: #7f7f7f;
   text-decoration-line: none;
   &:hover {

@@ -41,7 +41,7 @@ function Header() {
   return (
     <HeaderWrapper as={"header"}>
       <nav>
-        <Logo>Logo</Logo>
+        <span>Logo</span>
         <ul>
           {!user ? (
             <>
