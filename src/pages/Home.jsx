@@ -1,6 +1,6 @@
-import LayoutHome from "../components/Layout/Layout-Home";
+import Layout from "../components/Layout/Layout";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Avatar from "@mui/material/Avatar";
 import mainbg from "../static/mainbg.png";
 import lens from "../static/lens.png";
@@ -9,22 +9,35 @@ import me2 from "../static/memoji2.png";
 import me3 from "../static/memoji3.png";
 import me4 from "../static/memoji4.png";
 import me5 from "../static/memoji5.png";
+import me6 from "../static/memoji6.png";
+import me7 from "../static/memoji7.png";
+import me8 from "../static/memoji8.png";
+import me9 from "../static/memoji9.png";
+import me10 from "../static/memoji10.png";
 import { Link } from "react-router-dom";
+import { useEffect } from 'react';
+import { readQuestions } from '../redux/modules/questions';
+
 
 function Home() {
-  const Q = useSelector((state) => state.questions.users);
-  const counter = Q.map((search) => search.count);
+  const dispatch = useDispatch();
+  const Q = useSelector((state) => state.questions.questions);
+  console.log("Q",Q)
+  /* const counter = Q.map((search) => search.count);
   console.log("counter", counter);
-  const Rank = counter.sort((a, b) => b - a);
-  console.log("Rank", Rank);
-
-  const backgroundArr = [me1, me2, me3, me4, me5];
+  const Rank = counter.sort((a, b) => b - a); */
+  
+  const backgroundArr = [me1, me2, me3, me4, me5, me6, me7, me8, me9, me10];
   const randomIndex = Math.floor(Math.random() * backgroundArr.length);
   const backgroundImg = backgroundArr[randomIndex];
-  console.log(backgroundImg);
+  /* console.log(backgroundImg); */
+
+  useEffect(()=>{
+    dispatch(readQuestions())
+  }, [dispatch])
 
   return (
-    <LayoutHome>
+    <Layout>
       <Box>
         <RandomImg style={{ backgroundImage: `url(${backgroundImg})` }} />
       </Box>
@@ -38,8 +51,8 @@ function Home() {
         <StyleLink to="/questions/:questionId/write">
           <A>WriteAnswer</A>
         </StyleLink>
-        <StyleLink to="/profile/edit">
-          <A>ProfileEdit</A>
+        <StyleLink to="/questionsform">
+          <A>questionsform</A>
         </StyleLink>
       </Widgets>
       <Ranker>
@@ -54,21 +67,24 @@ function Home() {
                 margin: "0 auto",
                 marginTop: "30px",
               }}
+              alt=" "
               src=" "
             />
             <NickName>{Q.nickname}</NickName>
           </RankList>
         ))}
       </Ranker>
-    </LayoutHome>
+    </Layout>
   );
 }
 
 export default Home;
 
+// 배너박스
 const Box = styled.div`
   position: relative;
   margin: 0 auto;
+  margin-top: 44px;
   width: 100%;
   height: 201px;
   background-size: cover;
@@ -77,59 +93,17 @@ const Box = styled.div`
   background-image: url("${mainbg}");
 `;
 
+// 랜덤 이미지
 const RandomImg = styled.div`
   position: absolute;
-  margin-top: 35px;
-  width: 170px;
-  height: 166px;
-  margin-left: 60rem;
+  margin-top: 42px;
+  width: 171px;
+  height: 159px;
+  background-size: 100%;
+  margin-left: 55%;
 `;
 
-const Widgets = styled.div`
-  background-color: #000000;
-  border: 1px solid black;
-  width: 60%;
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  margin: 0 auto;
-  justify-content: space-evenly;
-  margin-top: 5%;
-`;
-
-const Label = styled.label`
-  color: #d6d6d6;
-`;
-
-const VerticalLine = styled.div`
-  border-left: 1px solid #e9ecef;
-  height: 50px;
-`;
-
-const Ranker = styled.div`
-  margin: 0 auto;
-  width: 60%;
-  height: 80%;
-  padding: 2.5%;
-  margin: 0 auto;
-  margin-top: 2%;
-  display: flex;
-`;
-
-const RankList = styled.div`
-  border: 1px solid black;
-  width: 200px;
-  height: 150px;
-  margin: 10px;
-`;
-
-const NickName = styled.div`
-  flex-wrap: wrap;
-  margin-top: 10px;
-  text-align: center;
-`;
-
+// 서치 인풋박스
 const Input = styled.input`
   overflow: auto;
   border: none;
@@ -156,10 +130,63 @@ const Input = styled.input`
   }
 `;
 
+// 위젯
+const Widgets = styled.div`
+  background-color: #000000;
+  border: 1px solid black;
+  width: 60%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+  justify-content: space-evenly;
+  margin-top: 5%;
+`;
+
+// 위젯 이너 라벨
+const Label = styled.label`
+  color: #d6d6d6;
+`;
+
+// 위젯 이너 버티컬 라인
+const VerticalLine = styled.div`
+  border-left: 1px solid #e9ecef;
+  height: 50px;
+`;
+
+//  랭크 위치
+const Ranker = styled.div`
+  margin: 0 auto;
+  width: 60%;
+  height: 80%;
+  padding: 2.5%;
+  margin: 0 auto;
+  margin-top: 2%;
+  display: flex;
+`;
+
+// 랭크 리스트
+const RankList = styled.div`
+  border: 1px solid black;
+  width: 200px;
+  height: 150px;
+  margin: 10px;
+`;
+
+// 닉네임
+const NickName = styled.div`
+  flex-wrap: wrap;
+  margin-top: 10px;
+  text-align: center;
+`;
+
+// Link 태그
 const StyleLink = styled(Link)`
   text-decoration-line: none;
 `;
 
+// a 태그
 const A = styled.a`
   color: #7f7f7f;
   text-decoration-line: none;

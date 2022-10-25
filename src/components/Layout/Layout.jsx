@@ -13,7 +13,7 @@ function Layout({ children }) {
 export default Layout;
 
 const Wrapper = styled.div`
-  padding-top: 44px;
-  max-width: 1000px;
+  font-weight: 600;
+  width: 100%;
   margin: 0 auto;
 `;

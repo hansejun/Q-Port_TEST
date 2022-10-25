@@ -1,19 +1,96 @@
 {
-  "posts": [
+  "questions": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "userId": 1,
+      "avatar": "",
+      "nickname": "원선",
+      "title": "잠이란 무엇인가요?",
+      "content": "잠을 꼭 자야하나요? 잠을 안자면 인체에 어떤 영향을 미치죠?",
+      "count": "15"
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": 2,
+      "userId": 2,
+      "avatar": "",
+      "nickname": "준혁",
+      "title": "FE분들이랑 어떻게 해야 협업을 잘 할까요?",
+      "content": "",
+      "count": "12"
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "avatar": "",
+      "nickname": "용호",
+      "title": "BE인데 FE배워서 풀스택하고 싶습니다. 뭐부터 공부해야 하나요?",
+      "content": "",
+      "count": "8"
+    },
+    {
+      "id": 4,
+      "userId": 4,
+      "avatar": "",
+      "nickname": "세준",
+      "title": "FE 면접 질문 100문100답 좋은 답변 채택하겠습니다!",
+      "content": "",
+      "count": "13"
+    },
+    {
+      "id": 5,
+      "userId": 5,
+      "avatar": "",
+      "nickname": "민기",
+      "title": "프론트엔드 어떻게 하면 잘할 수 있을까요?",
+      "content": "",
+      "count": "10"
+    },
+    {
+      "id": 6,
+      "userId": 6,
+      "avatar": "",
+      "nickname": "민기",
+      "title": "testtesttesttesttesttesttesttesttesttesttesttest",
+      "content": "",
+      "count": "10"
+    },
+    {
+      "id": 7,
+      "userId": 7,
+      "avatar": "",
+      "nickname": "민기",
+      "title": "testtesttesttesttesttesttesttesttesttesttesttest",
+      "content": "",
+      "count": "10"
+    },
+    {
+      "title": "zzzzzzzzzz",
+      "content": "zzzzzzzzzz",
+      "id": 8
+    },
+    {
+      "userId": 1,
+      "title": "dasf",
+      "content": "asdf",
+      "id": 9
+    },
+    {
+      "userId": 1,
+      "title": "adsf",
+      "content": "adsf",
+      "id": 10
+    },
+    {
+      "userId": 1,
+      "title": "ㅁㅇㄹ",
+      "content": "ㅁㅇㄴㄹ",
+      "id": 11
+    },
+    {
+      "userId": 1,
+      "title": "adsf",
+      "content": "asdf",
+      "id": 12
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

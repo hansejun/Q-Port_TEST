@@ -41,7 +41,7 @@ function Header() {
   return (
     <HeaderWrapper as={"header"}>
       <nav>
-        <span>Logo</span>
+        <Logo>Logo</Logo>
         <ul>
           {!user ? (
             <>
@@ -65,8 +65,7 @@ function Header() {
     </HeaderWrapper>
   );
 }
-export default memo(Header);
-
+export default Header;
 const HeaderWrapper = styled.div`
   width: 100%;
   height: 44px;

@@ -35,6 +35,34 @@ const initialState = {
   isLoading: false,
   error: null,
 };
+/** 질문글 추가하는 함수 */
+export const addQuestion = createAsyncThunk(
+  "questions/addQuestion",
+  async (payload, thunkApi) => {
+    try {
+      console.log(payload);
+      const { data } = await axios.post(BASE_URL, payload);
+      console.log(data);
+      return thunkApi.fulfillWithValue(data);
+    } catch (e) {
+      return thunkApi.rejectWithValue(e);
+    }
+  }
+);
+
+/** 질문글 전체를 조회하는 함수*/
+export const readQuestions = createAsyncThunk(
+  "questions/readQuestions",
+  async (payload, thunkApi) => {
+    try {
+      const { data } = await axios.get(BASE_URL);
+      console.log(data);
+      return thunkApi.fulfillWithValue(data);
+    } catch (e) {
+      return thunkApi.rejectWithValue(e);
+    }
+  }
+);
 
 const questionsSlice = createSlice({
   name: "questions",
@@ -60,6 +88,28 @@ const questionsSlice = createSlice({
     },
     [readQuestion.rejected]: (state, action) => {
       state.isLoading = false;
+    },
+    [addQuestion.pending]: (state) => {
+      state.isLoding = true;
+    },
+    [addQuestion.fulfilled]: (state, action) => {
+      state.isLoding = false;
+      state.questions.push(action.payload);
+    },
+    [addQuestion.rejected]: (state, action) => {
+      state.isLoding = false;
+      state.error = action.payload;
+    },
+    [readQuestions.pending]: (state) => {
+      state.isLoding = true;
+    },
+    [readQuestions.fulfilled]: (state, action) => {
+      state.isLoding = false;
+      state.questions = action.payload;
+    },
+    [readQuestions.rejected]: (state, action) => {
+      state.isLoding = false;
+      state.error = action.payload;
     },
   },
 });
