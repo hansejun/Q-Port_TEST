@@ -54,7 +54,7 @@ const usersSlice = createSlice({
   initialState,
   reducers: {
     getUser: (state, action) => {
-      state.user = state.users.fillter((user) => user.id === action.payload);
+      state.user = action.payload;
     },
   },
   extraReducers: {
@@ -62,6 +62,7 @@ const usersSlice = createSlice({
       state.users.push(action.payload);
     },
     [readUser.fulfilled]: (state, action) => {
+      console.log(action.payload);
       state.user = action.payload;
     },
     [readProfileUser.fulfilled]: (state, action) => {
@@ -70,4 +71,5 @@ const usersSlice = createSlice({
   },
 });
 
+export const { getUser } = usersSlice.actions;
 export default usersSlice.reducer;
