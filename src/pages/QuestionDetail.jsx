@@ -1,20 +1,37 @@
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "../components/Layout/Layout";
 import AnswerList from "../components/Question/AnswerList";
 import QContainer from "../components/Question/QContainer";
 import Button from "../elem/Button";
+import { readAnswers } from "../redux/modules/answers";
+import { readQuestion } from "../redux/modules/questions";
 import { FlexBetweenBox } from "../styles/flex";
 import AnswerSvg from "../styles/svg/AnswerSvg";
+
 function QuestionDetail() {
+  const { question } = useSelector((state) => state.questions);
+  const { answers } = useSelector((state) => state.answers);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(readQuestion(+id));
+    dispatch(readAnswers(+id));
+  }, [id, dispatch]);
+
   return (
     <Layout>
       <Wrapper as="main">
-        <QContainer />
+        <QContainer question={question} len={answers.length} />
         <AnswerContainer>
           <AnswerBtn>
-            <span>여러분의 답변이 김지식님에게 큰 도움이 됩니다.</span>
-            <Link>
+            <span>
+              여러분의 답변이 <strong>{question?.user?.nickname}</strong>님에게
+              큰 도움이 됩니다.
+            </span>
+            <Link to={`/questions/${question?.id}/write`}>
               <Button {...btnStyle}>답변하기</Button>
             </Link>
           </AnswerBtn>
@@ -23,12 +40,12 @@ function QuestionDetail() {
               <li>
                 <AnswerSvg />
                 <span>
-                  <strong>3</strong>개
+                  <strong>{answers?.length}</strong>개
                 </span>
               </li>
             </ul>
           </AnswerOptions>
-          <AnswerList />
+          <AnswerList answers={answers} selectedId={question?.selectedAnswer} />
         </AnswerContainer>
       </Wrapper>
     </Layout>
@@ -51,7 +68,7 @@ const Wrapper = styled.div`
 const AnswerContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 2rem;
+  padding: 0rem 2rem 2rem 2rem;
 `;
 const AnswerBtn = styled.div`
   background-color: ${(props) => props.theme.bgColor};
@@ -63,6 +80,9 @@ const AnswerBtn = styled.div`
     font-size: 0.8rem;
     font-weight: 500;
     color: rgba(0, 0, 0, 0.6);
+    strong {
+      color: rgba(0, 0, 0, 0.9);
+    }
   }
 `;
 const AnswerOptions = styled.div`

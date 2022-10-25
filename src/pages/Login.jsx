@@ -4,6 +4,8 @@ import Layout from "../components/Layout/Layout";
 import TextInput from "../elem/TextInput";
 import Button from "../elem/Button";
 import axios from "axios";
+import { Cookies } from "react-cookie";
+import { setAccessToken } from "../shared/Cookie";
 
 function Login() {
   const {
@@ -18,17 +20,37 @@ function Login() {
       password: inputs.password,
     };
     // BaseUrl 추가
-    const response = await axios.post("/api/login", info).then((res) => {
-      //console.log(res)
-      //setAccessToken(res.headers.authorization);
-      //setRefreshToken(res.headers['refresh-token'])
-    });
-    if (response.data.ok) {
-      window.location.href = "/";
-    } else {
-      alert("로그인 실패");
-    }
+    // const response = await axios.post("/api/login", info).then((res) => {
+    //   //console.log(res)
+    //   //setAccessToken(res.headers.authorization);
+    //   //setRefreshToken(res.headers['refresh-token'])
+    // });
+    // if (response.data.ok) {
+    //   window.location.href = "/";
+    // } else {
+    //   alert("로그인 실패");
+    // }
+
+    const response = await axios
+      .get(
+        `http://localhost:3001/users?email=${info.email}&password=${info.password}`
+      )
+      .then((res) => {
+        setAccessToken(res.data[0].id);
+        return res;
+      })
+      .catch((res) => res);
+    if (response?.status === 200) window.location.href = "/";
   };
+
+  // const response = await axios
+  //   .post("http://43.201.84.98/api/login", {
+  //     ...inputs,
+  //   })
+  //   .then((res) => {
+  //     console.log(res);
+  //     setAccessToken(res.data.token);
+  //   });};
 
   return (
     <Layout>
@@ -48,8 +70,10 @@ function Login() {
             }}
             type={"email"}
             label={"Email"}
+            errors={errors}
+            errorName={"email"}
           />
-          <ErrorMessage>{errors.email && errors.email.message}</ErrorMessage>
+
           <TextInput
             register={{
               ...register("password", {
@@ -62,10 +86,9 @@ function Login() {
             }}
             label="password"
             type="password"
+            errors={errors}
+            errorName={"password"}
           />
-          <ErrorMessage>
-            {errors.password && errors.password.message}
-          </ErrorMessage>
 
           <Button {...btnStyle}>로그인</Button>
         </Form>

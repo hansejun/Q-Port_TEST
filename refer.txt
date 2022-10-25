@@ -1,8 +1,8 @@
 
-(민기)2. 프로필 수정 페이지 (/profile/edit) : 검증 및 user 정보 전송하기  //  4
+(민기)2. 프로필 수정 페이지 (/profile/edit) : 검증 및 user 정보 전송하기  //  4  
 (민기)3. 질문페이지 (/questions) : question 데이터 가져오기  2
 (민기)4. 메인 페이지 (/)  : 순위 가져오기 1
-(민기)답 작성 페이지 (/questions/:questionId/write) : answer 데이터 전송하기 post  3
+(민기)답 작성 페이지 (/questions/:questionId/write) : answer 데이터 전송하기 post  
 
 (세준)1. 질문 디테일 페이지 (/questions/:questionId) : question / user / answer 데이터 가져오기
 (세준)5. 로그인 페이지 (/login) : 검증 및 login 데이터 전송
@@ -14,3 +14,48 @@
 
 세준---
 1) 로그인 페이지 로그인 post 요청에서 baseUrl 추가
+
+
+질문글 전체 get요청 
+답변글 추가 
+
+
+수정사항
+1. answer에 title 필요없음 
+2. answer 받을 때 해당 user의 avatar,nickname도 같이 받아와야함
+3. question 받을 때도 user의 avatar와 nickname을 같이 받아와야함
+
+4. userId를 넘겼을 때 해당 유저가 남긴 질문글들을 받아오는 api 설계 +( 해당 질문글의 답글 수도 같이 받아오면 좋음 )
+5. userId를 넘겼을 때 해당 유저가 남긴 답변글들을 받아오는 api 설계 
+    
+6. 채택 기능 api 설계
+  - api/questions/:id에 body를 answer.id
+
+QuestionDetail
+[] 삭제버튼 추가
+[] 질문글 수정 및 답변글 수정 / 삭제 기능 추가 
+[] 질문글 수정 페이지 답변글 수정 페이지 만들기 
+[] question 글을 올린 유저만 채택 버튼 보일 수 있게 하기 
+[] answer 글을 올린 유저만 삭제하기 버튼 보일 수 있게 하기 
+[] 채택이 되었다면 채택하기 버튼 삭제 
+[o] 채택된 글이 최상단에 위치하게 하기 (무한스크롤 혹은 페이징을 할 경우에는 백에서 처리해야함)
+
+Profile
+[o] 프로필 정보 보여주기 
+[o] 로그인된 유저의 id와 현재 프로필 페이지 params id가 같다면 프로필 수정 버튼 보이게 한다.
+
+Login
+[o] response를 받은 후에 성공적이라면 setCookie() 후 "/"로 보내기
+[] response를 받은 후에 실패했다면 alert 띄우고 message 보여주기
+
+join
+[] response를 받은 후에 성공적이라면  alert 띄우고 message 보여준 뒤 로그인 페이지로 보내기 
+[] response를 받은 후에 실패했다면  alert 띄우고 message 보여주기
+
+
+// form postImage name 
+
+
+title: 
+content: 
+img:

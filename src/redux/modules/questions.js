@@ -1,19 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BASE_URL = "http://3.35.229.128/api/qnas";
+const BASE_URL = "http://localhost:3001/questions";
 
-export const readQuestions = createAsyncThunk(
+/** userId를 받아와서 해당 유저의 질문글들을 조회하는 함수 */
+export const readUserQuestions = createAsyncThunk(
   "questions/readQuestions",
-  async (_, thunkApi) => {
+  async (payload, thunkApi) => {
     try {
-      const { data } = await axios.get(BASE_URL);
+      const { data } = await axios.get(`${BASE_URL}?userId=${payload}`);
       return thunkApi.fulfillWithValue(data);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
     }
   }
 );
+
+/** questionId를 받아와서 해당 질문글을 조회하는 함수 */
 export const readQuestion = createAsyncThunk(
   "questions/readQuestion",
   async (payload, thunkApi) => {
@@ -27,7 +30,6 @@ export const readQuestion = createAsyncThunk(
 );
 
 const initialState = {
-  ok: true,
   questions: [],
   question: {},
   isLoading: false,
@@ -39,26 +41,22 @@ const questionsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [readQuestions.pending]: (state, action) => {
+    [readUserQuestions.pending]: (state, action) => {
       state.isLoading = true;
     },
-    [readQuestions.fulfilled]: (state, action) => {
-      const { ok, data } = action.payload;
+    [readUserQuestions.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.ok = ok;
-      state.questions = data;
+      state.questions = action.payload;
     },
-    [readQuestions.rejected]: (state, action) => {
+    [readUserQuestions.rejected]: (state, action) => {
       state.isLoading = false;
     },
     [readQuestion.pending]: (state, action) => {
       state.isLoading = true;
     },
     [readQuestion.fulfilled]: (state, action) => {
-      const { ok, data } = action.payload;
       state.isLoading = false;
-      state.ok = ok;
-      state.question = data;
+      state.question = action.payload;
     },
     [readQuestion.rejected]: (state, action) => {
       state.isLoading = false;

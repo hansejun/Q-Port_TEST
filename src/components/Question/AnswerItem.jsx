@@ -2,26 +2,31 @@ import styled from "styled-components";
 import Button from "../../elem/Button";
 import { FlexBetweenBox, Flexbox } from "../../styles/flex";
 import HeartSvg from "../../styles/svg/HeartSvg";
+import CheckSvg from "../../styles/svg/CheckSvg";
 import CommentSvg from "../../styles/svg/CommentSvg";
 import { Link } from "react-router-dom";
-
-function AnswerItem() {
+import timeCheck from "../../utils/timeCheck";
+function AnswerItem({ answer, selectedId }) {
   return (
-    <ItemBox>
-      <ItemUser>
-        <span>
-          <Link to={"/profile/1"}>박지식</Link>님의 답변
-        </span>
-        <div className="img" />
-      </ItemUser>
+    <ItemBox id={answer.id + ""}>
+      <Link to={`/profile/${answer?.userId}`}>
+        <ItemUser>
+          <div>
+            {selectedId === answer.id ? (
+              <span>
+                <CheckSvg />
+              </span>
+            ) : null}
+            <strong>{answer?.nickname}</strong>
+            님의 답변
+          </div>
+          <img src={answer?.avatar} alt={answer?.nickname} />
+        </ItemUser>
+      </Link>
       <ItemContent>
-        <p>
-          그건 이렇게 하시면 됩니다!!!그건 이렇게 하시면 됩니다!!!그건 이렇게
-          하시면 됩니다!!!그건 이렇게 하시면 됩니다!!!그건 이렇게 하시면
-          됩니다!!!그건 이렇게 하시면 됩니다!!!그건 이렇게 하시면 됩니다!!!
-        </p>
-        <div className="img">이미지</div>
-        <span>20분 전</span>
+        <img src={answer?.imgUrl} alt={" "} />
+        <p>{answer?.content}</p>
+        <span>{timeCheck(+answer?.createdAt)}</span>
       </ItemContent>
       <ItemBtns>
         <div>
@@ -40,7 +45,7 @@ function AnswerItem() {
 export default AnswerItem;
 
 const btnStyle = {
-  _bgColor: "#7298FF",
+  _bgColor: "#7298ff",
   _hoverBgColor: "#4f7dfe",
   borderRadius: "0",
 };
@@ -50,6 +55,15 @@ const ItemBox = styled.div`
   padding-top: 1rem;
   background-color: ${(props) => props.theme.bgColor};
   margin-bottom: 2rem;
+
+  & > a {
+    &:hover {
+      & > div {
+        background-color: #c2d2ff;
+        box-shadow: 0px 2px 5px rgba(1, 19, 154, 0.1);
+      }
+    }
+  }
 `;
 const ItemUser = styled.div`
   ${FlexBetweenBox}
@@ -57,9 +71,24 @@ const ItemUser = styled.div`
   margin: 0 1rem;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
   border-radius: 10px;
-  span {
+  cursor: pointer;
+  div {
     color: rgba(0, 0, 0, 0.7);
-    a {
+    display: flex;
+    align-items: center;
+    span {
+      width: 1.8rem;
+      height: 1.8rem;
+      background-color: #7298ff;
+      border-radius: 50%;
+      ${Flexbox}
+      margin-right: 0.8rem;
+      svg {
+        width: 1.1rem;
+        color: white;
+      }
+    }
+    strong {
       font-size: 1rem;
       color: ${(props) => props.theme.fontColor};
       margin-right: 0.1rem;
@@ -67,11 +96,12 @@ const ItemUser = styled.div`
     font-size: 0.9rem;
     font-weight: 600;
   }
-  div {
+  img {
     width: 3rem;
     aspect-ratio: 1/1;
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: 50%;
+    object-fit: cover;
   }
 `;
 
@@ -82,12 +112,10 @@ const ItemContent = styled.div`
   padding: 2rem 2rem;
   font-size: 0.9rem;
   line-height: 1.8;
-  div {
-    ${Flexbox}
-    width: 40%;
-    aspect-ratio: 1/1;
-    background-color: rgba(0, 0, 0, 0.2);
-    margin-top: 2rem;
+  img {
+    max-width: 70%;
+    object-fit: cover;
+    margin-bottom: 2rem;
   }
   span {
     margin-top: 2rem;

@@ -1,15 +1,49 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { memo, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { readUser } from "../../redux/modules/loginUser";
+import { removeCookieToken } from "../../shared/Cookie";
+import UseUser from "../hooks/useUser";
 
 function Header() {
-  const [isLogin] = useState(false);
+  const user = UseUser();
+  //const cookie = getCookieToken();
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  //로그인한 유저가 login / join 페이지 접근시 이전 페이지로 되돌린다.
+  useEffect(() => {
+    if (user) {
+      switch (pathname) {
+        case "/login":
+          navigate(-1);
+          break;
+        case "/join":
+          navigate(-1);
+          break;
+        default:
+          return;
+      }
+    }
+  }, [pathname, user, navigate]);
+
+  useEffect(() => {
+    if (user) dispatch(readUser(user?.id));
+  }, [dispatch, user]);
+
+  const onClick = () => {
+    removeCookieToken();
+    window.location.reload();
+  };
+
   return (
     <HeaderWrapper as={"header"}>
       <nav>
         <span>Logo</span>
         <ul>
-          {!isLogin ? (
+          {!user ? (
             <>
               <li>
                 <Link to="/login">Login</Link>
@@ -21,11 +55,9 @@ function Header() {
           ) : (
             <>
               <li>
-                <Link to={`/profile/:id`}>Profile</Link>
+                <Link to={`/profile/${user?.id}`}>Profile</Link>
               </li>
-              <li>
-                <Link to={`/logout`}>Logout</Link>
-              </li>
+              <li onClick={onClick}>Logout</li>
             </>
           )}
         </ul>
@@ -33,7 +65,7 @@ function Header() {
     </HeaderWrapper>
   );
 }
-export default Header;
+export default memo(Header);
 
 const HeaderWrapper = styled.div`
   width: 100%;
@@ -60,12 +92,13 @@ const HeaderWrapper = styled.div`
         font-size: 0.8rem;
         margin-left: 1rem;
         font-weight: 400;
+        cursor: pointer;
       }
     }
   }
 `;
 
-const Logo = styled.img`
-  width: 4rem;
-  color: white;
-`;
+// const Logo = styled.img`
+//   width: 4rem;
+//   color: white;
+// `;

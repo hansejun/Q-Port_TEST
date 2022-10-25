@@ -4,13 +4,19 @@ import CommentSvg from "../../styles/svg/CommentSvg";
 import timeCheck from "../../utils/timeCheck";
 
 function Item({ isAnswer, data }) {
-  console.log(data);
+  //console.log(data);
   return (
     <DataContainer>
-      <Link to={`/questions/${data.questionId}`}>
-        <p>{data.title}</p>
+      <Link
+        to={
+          !isAnswer ? `/questions/${data.id}` : `/questions/${data.questionId}`
+        }
+        state={{ scrollId: !isAnswer ? data.id : null }}
+      >
+        <p>{!isAnswer ? data.title : data.content}</p>
       </Link>
       <DataContent isAnswer={isAnswer}>
+        {!isAnswer}
         <span>{!data.selectedAnswer ? "진행중" : "채택 완료"}</span>
         {isAnswer ? null : (
           <span>

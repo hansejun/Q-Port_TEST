@@ -19,7 +19,7 @@ function Router() {
         <Route path="/questions/:id" element={<QuestionDetail />} />
         <Route path="/questions" element={<Question />} />
         <Route path="/questions/:id/write" element={<WriteAnswer />} />
-        <Route path="/profile/edit" element={<ProfileEdit />} />
+        <Route path="/profile/:id/edit" element={<ProfileEdit />} />
       </Routes>
     </BrowserRouter>
   );

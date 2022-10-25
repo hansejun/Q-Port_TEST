@@ -3,8 +3,11 @@ import styled from "styled-components";
 import Layout from "../components/Layout/Layout";
 import TextInput from "../elem/TextInput";
 import Button from "../elem/Button";
-import axios from "axios";
+
+import { useDispatch } from "react-redux";
+import { addUser } from "../redux/modules/loginUser";
 function Join() {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -12,9 +15,9 @@ function Join() {
     setError,
   } = useForm();
   const onValid = async (inputs) => {
-    if (inputs.password !== inputs.password2) {
+    if (inputs.password !== inputs.confirm) {
       setError(
-        "password2",
+        "confirm",
         { message: "비밀번호가 일치하지 않습니다." },
         { shouldFocus: true }
       );
@@ -24,12 +27,12 @@ function Join() {
       email: inputs.email,
       nickname: inputs.nickname,
       password: inputs.password,
+      confirm: inputs.confirm,
+      //avatar: "https://avatars.dicebear.com/api/identicon/:seed.svg",
+      //score: 0,
     };
-    const response = await axios.post("/api/signup", info);
-    if (!response.ok) {
-      alert(response.message);
-      return;
-    }
+    //dispatch(addUser({ ...inputs }));
+    dispatch(addUser(info));
     window.location.href = "/";
   };
   return (
@@ -50,8 +53,10 @@ function Join() {
             }}
             type={"email"}
             label={"Email"}
+            errors={errors}
+            errorName={"email"}
           />
-          <ErrorMessage>{errors.email && errors.email.message}</ErrorMessage>
+
           <TextInput
             register={{
               ...register("password", {
@@ -64,13 +69,13 @@ function Join() {
             }}
             label="Password"
             type="password"
+            errors={errors}
+            errorName={"password"}
           />
-          <ErrorMessage>
-            {errors.password && errors.password.message}
-          </ErrorMessage>
+
           <TextInput
             register={{
-              ...register("password2", {
+              ...register("confirm", {
                 required: "비밀번호를 입력해주세요.",
                 minLength: {
                   value: 4,
@@ -80,10 +85,10 @@ function Join() {
             }}
             label="Check Password"
             type="password"
+            errors={errors}
+            errorName={"confirm"}
           />
-          <ErrorMessage>
-            {errors.password2 && errors.password2.message}
-          </ErrorMessage>
+
           <TextInput
             register={{
               ...register("nickname", {
@@ -100,10 +105,10 @@ function Join() {
             }}
             label="Nickname"
             type="text"
+            errors={errors}
+            errorName={"nickname"}
           />
-          <ErrorMessage>
-            {errors.nickname && errors.nickname.message}
-          </ErrorMessage>
+
           <Button {...btnStyle}>회원가입</Button>
         </Form>
       </JoinContainer>

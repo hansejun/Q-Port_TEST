@@ -1,5 +1,6 @@
 # dependencies
 /node_modules
 /fake-server/.db.json
+.env
 
 

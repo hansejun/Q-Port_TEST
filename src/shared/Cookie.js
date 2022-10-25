@@ -12,6 +12,7 @@ export const setAccessToken = (accessToken) => {
     expires: new Date(expireDate),
   });
 };
+
 // export const setRefreshToken = (refreshtoken) => {
 //   const today = new Date();
 //   // const expireDate = new Date(new Date().getTime() + 60 * 1000* 60* 24);

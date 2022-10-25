@@ -1,11 +1,16 @@
 import styled from "styled-components";
 
-function TextInput({ type, register, label }) {
+function TextInput({ type, register, label, errors = {}, errorName = "" }) {
   return (
-    <InputLabel>
-      <span>{label}</span>
-      <Input {...register} type={type} />
-    </InputLabel>
+    <>
+      <InputLabel>
+        <span>{label}</span>
+        <Input {...register} type={type} />
+      </InputLabel>
+      <ErrorMessage>
+        {errors[errorName] && errors[errorName].message}
+      </ErrorMessage>
+    </>
   );
 }
 export default TextInput;
@@ -40,4 +45,10 @@ const Input = styled.input`
       opacity: 0;
     }
   }
+`;
+const ErrorMessage = styled.span`
+  padding-top: 0.2rem;
+  height: 1.6rem;
+  color: red;
+  font-size: 0.75rem;
 `;
