@@ -11,9 +11,9 @@ function QuestionForm() {
   const navigate = useNavigate();
 
   const [input, setInput] = useState({
-    userId: 1,
     title: "",
     content: "",
+    imgUrl:"",
   });
 
   const onChange = (e) => {
@@ -41,7 +41,7 @@ function QuestionForm() {
 
   return (
     <Layout>
-      <PageTitle>QuestionForm</PageTitle>
+      <PageTitle>Question Form</PageTitle>
       <Formlabel>새 질문 작성</Formlabel>
       <Line />
       <FormContainer onSubmit={onCreate}>

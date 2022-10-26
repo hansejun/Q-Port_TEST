@@ -1,19 +1,12 @@
 import Layout from "../components/Layout/Layout";
-import Avatar from "@mui/material/Avatar";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import TextField from "@mui/material/TextField";
-import Button from "../elem/Button";
-import Container from "@mui/material/Container";
 import { addAnswer } from "../redux/modules/answers";
 import { useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import instance from "../shared/apis";
 
 function WriteAnswer() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
   console.log(id);
@@ -87,7 +80,7 @@ function WriteAnswer() {
                 />
                 <button>
                   <i>
-                    <AiOutlinePlus style={{}} />
+                    <AiOutlinePlus/>
                   </i>
                   Upload
                 </button>

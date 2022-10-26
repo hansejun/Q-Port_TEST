@@ -20,7 +20,10 @@ import { readQuestions } from "../redux/modules/questions";
 
 function Home() {
   const dispatch = useDispatch();
-  const Q = useSelector((state) => state.questions.questions);
+  const { questions } = useSelector((state) => state.questions);
+  const counter = questions.map((search) => search.selectedAnswer);
+  const Rank = counter.sort((a, b) => b - a);
+  console.log(Rank[0],Rank[1],Rank[2]);
 
   const backgroundArr = [me1, me2, me3, me4, me5, me6, me7, me8, me9, me10];
   const randomIndex = Math.floor(Math.random() * backgroundArr.length);
@@ -51,7 +54,7 @@ function Home() {
           </StyleLink>
         </Widgets>
         <Ranker>
-          {Q.map((Q, idx) => (
+          {questions.map((questions, idx) => (
             <RankList key={idx}>
               <Avatar
                 style={{
@@ -65,7 +68,8 @@ function Home() {
                 alt=" "
                 src=" "
               />
-              <NickName>{Q.nickname}</NickName>
+              <NickName>{questions.nickname}</NickName>
+              {Rank[0]},{Rank[1]},{Rank[2]}
             </RankList>
           ))}
         </Ranker>
