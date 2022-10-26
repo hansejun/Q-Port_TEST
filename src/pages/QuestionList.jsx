@@ -17,6 +17,7 @@ function Question() {
     dispatch(readQuestions());
   }, [dispatch]);
 
+
   return (
     <Layout>
       <PageTitle>Question</PageTitle>
@@ -62,6 +63,10 @@ function Question() {
           );
         })}
       </ThreadContainer>
+      <Line />
+      <FormBox>
+      <QuestionFormLink to={"/questions/form"}>질문 추가</QuestionFormLink>
+      </FormBox>
     </Layout>
   );
 }
@@ -84,7 +89,6 @@ const ThreadTitle = styled.div`
 
 // 스레드 그룹
 const ThreadGroup = styled.div`
-  /* background-color: green; */
   width: 1000px;
   margin: 0 auto;
   margin-top: 1.5rem;
@@ -108,11 +112,10 @@ const Line = styled.div`
 
 // 스레드 컨테이너
 const ThreadContainer = styled.div`
-  /* background-color: #20c997; */
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;
-  height: 600px;
+  height: 450px;
   overflow-x: hidden;
   overflow-y: auto;
   &::-webkit-scrollbar {
@@ -126,7 +129,6 @@ const ThreadContainer = styled.div`
 
 // 리스트
 const QList = styled.div`
-  /* background-color: green; */
   width: 725px;
   padding: 2rem;
 `;
@@ -160,7 +162,6 @@ const QListUserId = styled.div`
 
 // 리스트 아이콘
 const QListicon = styled.div`
-  /* background-color: red; */
   width: 1rem;
   margin-left: 722px;
   margin-top: -2rem;
@@ -168,7 +169,6 @@ const QListicon = styled.div`
 
 // 뷰 카운트
 const ViewCount = styled.div`
-  /* background-color: blue; */
   margin: 0 auto;
   width: 3rem;
   text-align: center;
@@ -178,10 +178,31 @@ const ViewCount = styled.div`
 
 // 셀렉트 카운트
 const AnswerCount = styled.div`
-  /* background-color: blue; */
   margin: 0 auto;
   width: 3rem;
   text-align: center;
   margin-left: 845px;
   margin-top: -1.05rem;
+`;
+
+// 질문폼 박스
+const FormBox = styled.div`
+  position: relative;
+  max-width: 1000px;
+  height: 42px;
+  margin: 0 auto;
+  margin-top: 10px;
+`;
+
+// 질문폼 링크
+const QuestionFormLink = styled(Link)`
+  position: absolute;
+  cursor: pointer;
+  border: 1px solid #e9ecef;
+  text-align: center;
+  padding: 13px;
+  border-radius: 0.2rem;
+  width: 5.8rem;
+  height: 42px;
+  margin-left: 89.6%;
 `;

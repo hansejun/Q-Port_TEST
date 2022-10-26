@@ -165,18 +165,6 @@ const CreateContent = styled.textarea`
   font-weight: bold;
   cursor: text;
 `;
-const FileBox = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 65%;
-  gap: 10px;
-`;
-
-const Img = styled.img`
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
-`;
 
 const Title = styled.p`
   font-weight: bold;
@@ -184,6 +172,13 @@ const Title = styled.p`
   font-size: 1.2rem;
   margin-top: 20px;
   margin-left: 50px;
+`;
+
+const FileBox = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 65%;
+  gap: 10px;
 `;
 
 const FileCard = styled.div`
@@ -246,6 +241,13 @@ const FileInput = styled.div`
     font-size: 0.8em;
   }
 `;
+
+const Img = styled.img`
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+`;
+
 const StyleButton = styled.button`
   border: 1px solid #e9ecef;
   border-radius: 0.2rem;
