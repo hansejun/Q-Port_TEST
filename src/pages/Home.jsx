@@ -69,7 +69,6 @@ function Home() {
                 src=" "
               />
               <NickName>{questions.nickname}</NickName>
-              {Rank[0]},{Rank[1]},{Rank[2]}
             </RankList>
           ))}
         </Ranker>
@@ -127,7 +126,6 @@ const Input = styled.input`
   &::placeholder {
     font-size: 15px;
     font-weight: bold;
-    /*    text-indent:35px; */
   }
 `;
 
