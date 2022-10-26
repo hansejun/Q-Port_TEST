@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { useRef, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
-import instance, { postApi } from "../shared/apis";
-import { useSelector } from "react-redux";
+import { postApi } from "../shared/apis";
+
 import { getCookieToken } from "../shared/Cookie";
 
 function WriteAnswer() {
@@ -96,7 +96,7 @@ function WriteAnswer() {
                 />
                 <button>
                   <i>
-                    <AiOutlinePlus style={{}} />
+                    <AiOutlinePlus />
                   </i>
                   Upload
                 </button>

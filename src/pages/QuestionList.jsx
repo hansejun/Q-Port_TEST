@@ -12,7 +12,7 @@ import { useEffect } from "react";
 function Question() {
   const dispatch = useDispatch();
   const { questions } = useSelector((state) => state.questions);
-
+  
   useEffect(() => {
     dispatch(readQuestions());
   }, [dispatch]);

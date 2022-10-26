@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.js": "/static/js/main.ab42108a.js",
+    "static/media/mainbg.png": "/static/media/mainbg.e13bd3abe1862eee7ff5.png",
+    "static/media/memoji9.png": "/static/media/memoji9.ada86b9486291bb48ec4.png",
+    "static/media/memoji1.png": "/static/media/memoji1.90558b28e5a3ce0753d1.png",
+    "static/media/memoji7.png": "/static/media/memoji7.a9089f5befe28f7f0995.png",
+    "static/media/memoji5.png": "/static/media/memoji5.b25dc2c750422a3701b4.png",
+    "static/media/memoji3.png": "/static/media/memoji3.f2e9fe0944b036c387ae.png",
+    "static/media/memoji6.png": "/static/media/memoji6.7d16cc2ce92760f14a8f.png",
+    "static/media/memoji10.png": "/static/media/memoji10.6250ac3d9b2335563386.png",
+    "static/media/memoji4.png": "/static/media/memoji4.f7760191abc513e77626.png",
+    "static/media/memoji2.png": "/static/media/memoji2.ef8af8b0788bfd6c3981.png",
+    "static/media/memoji8.png": "/static/media/memoji8.c5494940b443f8cae1b3.png",
+    "static/media/lens.png": "/static/media/lens.21424b37732ea9737fc8.png",
+    "static/media/logo.png": "/static/media/logo.e3d8c862205ed1d03261.png",
+    "index.html": "/index.html",
+    "main.ab42108a.js.map": "/static/js/main.ab42108a.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.ab42108a.js"
+  ]
+}

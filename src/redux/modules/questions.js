@@ -1,14 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import instance, { api } from "../../shared/apis";
-const BASE_URL = "http://localhost:3001/questions";
+
+const BASE_URL = "";
 
 /** questionId를 받아와서 해당 질문글을 조회하는 함수 */
 export const readQuestion = createAsyncThunk(
   "questions/readQuestion",
   async (payload, thunkApi) => {
     try {
-      const { data } = await api.get(`qnas/${payload}`);
+      const { data } = await api.get(`http://43.201.84.98/api/qnas/${payload}`);
       return thunkApi.fulfillWithValue(data.data);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
@@ -21,7 +22,10 @@ export const addQuestion = createAsyncThunk(
   "questions/addQuestion",
   async (payload, thunkApi) => {
     try {
-      const { data } = await instance.post(`qnas`, payload);
+      const { data } = await instance.post(
+        `http://43.201.84.98/api/qnas`,
+        payload
+      );
       return thunkApi.fulfillWithValue(data.data);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
@@ -33,9 +37,9 @@ export const addQuestion = createAsyncThunk(
 export const readQuestions = createAsyncThunk(
   "questions/readQuestions",
   async (payload, thunkApi) => {
+    console.log(payload);
     try {
-      const { data } = await api.get("qnas");
-
+      const { data } = await api.get("http://43.201.84.98/api/qnas");
       return thunkApi.fulfillWithValue(data.data);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
