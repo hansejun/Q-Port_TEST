@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { api } from "../../shared/apis";
 
 const BASE_URL = "http://localhost:3001";
 //onst BASE_URL = "http://43.201.84.98/";
@@ -17,6 +18,7 @@ export const addUser = createAsyncThunk(
   }
 );
 
+// 사용 x
 export const readUser = createAsyncThunk(
   "users/readUser",
   async (payload, thunkApi) => {
@@ -24,7 +26,7 @@ export const readUser = createAsyncThunk(
       const { data } = await axios.get(
         `${BASE_URL}/users?email=${payload.email}&password=${payload.password}`
       );
-      return thunkApi.fulfillWithValue(data);
+      return thunkApi.fulfillWithValue(data.data.user);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
     }
@@ -35,8 +37,8 @@ export const readProfileUser = createAsyncThunk(
   "users/readProfileUser",
   async (payload, thunkApi) => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/users/${payload}`);
-      return thunkApi.fulfillWithValue(data);
+      const { data } = await api.get(`users/${payload}`);
+      return thunkApi.fulfillWithValue(data.data);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
     }
@@ -54,6 +56,7 @@ const usersSlice = createSlice({
   initialState,
   reducers: {
     getUser: (state, action) => {
+      console.log(action.payload);
       state.user = action.payload;
     },
   },

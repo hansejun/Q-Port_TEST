@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import UseUser from "../components/hooks/useUser";
 import Layout from "../components/Layout/Layout";
 import AnswerList from "../components/Question/AnswerList";
 import QContainer from "../components/Question/QContainer";
@@ -14,14 +15,22 @@ import AnswerSvg from "../styles/svg/AnswerSvg";
 function QuestionDetail() {
   const { question } = useSelector((state) => state.questions);
   const { answers } = useSelector((state) => state.answers);
+  const navigate = useNavigate();
   const { id } = useParams();
-  const { user } = useSelector((state) => state.users);
-
+  const user = UseUser();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(readQuestion(+id));
     dispatch(readAnswers(+id));
   }, [id, dispatch]);
+
+  const onClickEdit = () => {
+    if (user) navigate(`/questions/${question?.questionId}/write`);
+    else {
+      alert("로그인이 필요한 서비스 입니다.");
+      navigate("/login");
+    }
+  };
 
   return (
     <Layout>
@@ -30,12 +39,12 @@ function QuestionDetail() {
         <AnswerContainer>
           <AnswerBtn>
             <span>
-              여러분의 답변이 <strong>{question?.user?.nickname}</strong>님에게
-              큰 도움이 됩니다.
+              여러분의 답변이 <strong>{question?.nickname}</strong>님에게 큰
+              도움이 됩니다.
             </span>
-            <Link to={`/questions/${question?.id}/write`}>
-              <Button {...btnStyle}>답변하기</Button>
-            </Link>
+            <Button {...btnStyle} _onClick={onClickEdit}>
+              답변하기
+            </Button>
           </AnswerBtn>
           <AnswerOptions>
             <ul>

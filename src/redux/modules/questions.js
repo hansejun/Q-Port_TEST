@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import instance, { api } from "../../shared/apis";
 const BASE_URL = "http://localhost:3001/questions";
 
 /** userId를 받아와서 해당 유저의 질문글들을 조회하는 함수 */
@@ -8,8 +8,9 @@ export const readUserQuestions = createAsyncThunk(
   "questions/readQuestions",
   async (payload, thunkApi) => {
     try {
-      const { data } = await axios.get(`${BASE_URL}?userId=${payload}`);
-      return thunkApi.fulfillWithValue(data);
+      const { data } = await api.get(`qnas/users/${payload}`);
+
+      return thunkApi.fulfillWithValue(data.data);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
     }
@@ -21,8 +22,8 @@ export const readQuestion = createAsyncThunk(
   "questions/readQuestion",
   async (payload, thunkApi) => {
     try {
-      const { data } = await axios.get(`${BASE_URL}/${payload}`);
-      return thunkApi.fulfillWithValue(data);
+      const { data } = await api.get(`qnas/${payload}`);
+      return thunkApi.fulfillWithValue(data.data);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
     }
@@ -34,10 +35,8 @@ export const addQuestion = createAsyncThunk(
   "questions/addQuestion",
   async (payload, thunkApi) => {
     try {
-      console.log(payload);
-      const { data } = await axios.post(BASE_URL, payload);
-      console.log(data);
-      return thunkApi.fulfillWithValue(data);
+      const { data } = await instance.post(`qnas`, payload);
+      return thunkApi.fulfillWithValue(data.data);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
     }
@@ -49,9 +48,9 @@ export const readQuestions = createAsyncThunk(
   "questions/readQuestions",
   async (payload, thunkApi) => {
     try {
-      const { data } = await axios.get(BASE_URL);
-      console.log(data);
-      return thunkApi.fulfillWithValue(data);
+      const { data } = await api.get("qnas");
+
+      return thunkApi.fulfillWithValue(data.data);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
     }

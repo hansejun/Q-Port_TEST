@@ -6,6 +6,7 @@ import Button from "../elem/Button";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import { setAccessToken } from "../shared/Cookie";
+import { api } from "../shared/apis";
 
 function Login() {
   const {
@@ -31,26 +32,33 @@ function Login() {
     //   alert("로그인 실패");
     // }
 
-    const response = await axios
-      .get(
-        `http://localhost:3001/users?email=${info.email}&password=${info.password}`
-      )
-      .then((res) => {
-        setAccessToken(res.data[0].id);
-        return res;
-      })
-      .catch((res) => res);
-    if (response?.status === 200) window.location.href = "/";
-  };
+    //   const response = await axios
+    //     .get(
+    //       `http://localhost:3001/users?email=${info.email}&password=${info.password}`
+    //     )
+    //     .then((res) => {
+    //       setAccessToken(res.data[0].id);
+    //       return res;
+    //     })
+    //     .catch((res) => res);
+    //   if (response?.status === 200) window.location.href = "/";
+    // };
 
-  // const response = await axios
-  //   .post("http://43.201.84.98/api/login", {
-  //     ...inputs,
-  //   })
-  //   .then((res) => {
-  //     console.log(res);
-  //     setAccessToken(res.data.token);
-  //   });};
+    const response = await api
+      .post("login", {
+        ...inputs,
+      })
+      .then((res) => {
+        setAccessToken(res.data.token);
+        return res;
+      });
+
+    if (response.status !== 200) {
+      alert("회원가입에 실패하였습니다.");
+    } else {
+      window.location.href = "/";
+    }
+  };
 
   return (
     <Layout>

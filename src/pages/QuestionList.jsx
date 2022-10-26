@@ -11,7 +11,7 @@ import { useEffect } from "react";
 
 function Question() {
   const dispatch = useDispatch();
-  const Q = useSelector((state) => state.questions.questions);
+  const { questions } = useSelector((state) => state.questions);
 
   useEffect(() => {
     dispatch(readQuestions());
@@ -34,25 +34,25 @@ function Question() {
       </ThreadGroup>
       <Line />
       <ThreadContainer>
-        {Q.map((Q) => {
+        {questions?.map((question) => {
           return (
-            <QList key={Q.id}>
-              <QListTitle to={`/questions/${Q.id}`}>
-                <A>{Q.title}</A>
+            <QList key={question.questionId}>
+              <QListTitle to={`/questions/${question.questionId}`}>
+                <A>{question.title}</A>
               </QListTitle>
               <QListWriter>
                 작성자:
-                <QListUserId>{Q.userId}</QListUserId>
+                <QListUserId>{question.nickname}</QListUserId>
               </QListWriter>
               <QListicon>
                 {/* <AiOutlineCheckCircle/> */}
                 <AiFillCheckCircle />
               </QListicon>
               <ViewCount>
-                <p>1</p>
+                <p>{question.view}</p>
               </ViewCount>
               <AnswerCount>
-                <p>1</p>
+                <p>{question.answerCount}</p>
               </AnswerCount>
             </QList>
           );

@@ -6,6 +6,7 @@ import Button from "../elem/Button";
 
 import { useDispatch } from "react-redux";
 import { addUser } from "../redux/modules/loginUser";
+import { api } from "../shared/apis";
 function Join() {
   const dispatch = useDispatch();
   const {
@@ -29,13 +30,14 @@ function Join() {
       nickname: inputs.nickname,
       password: inputs.password,
       confirm: inputs.confirm,
-
-      //avatar: "https://avatars.dicebear.com/api/identicon/:seed.svg",
-      //score: 0,
     };
-    //dispatch(addUser({ ...inputs }));
-    dispatch(addUser(info));
-    window.location.href = "/";
+
+    const response = await api.post("signup", info);
+    if (response.status !== 200) {
+      alert(response.data.message);
+      return;
+    }
+    window.location.href = "/login";
   };
   return (
     <Layout>

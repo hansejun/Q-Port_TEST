@@ -21,15 +21,10 @@ import { readQuestions } from "../redux/modules/questions";
 function Home() {
   const dispatch = useDispatch();
   const Q = useSelector((state) => state.questions.questions);
-  console.log("Q", Q);
-  /* const counter = Q.map((search) => search.count);
-  console.log("counter", counter);
-  const Rank = counter.sort((a, b) => b - a); */
 
   const backgroundArr = [me1, me2, me3, me4, me5, me6, me7, me8, me9, me10];
   const randomIndex = Math.floor(Math.random() * backgroundArr.length);
   const backgroundImg = backgroundArr[randomIndex];
-  /* console.log(backgroundImg); */
 
   useEffect(() => {
     dispatch(readQuestions());

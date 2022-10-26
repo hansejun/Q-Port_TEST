@@ -35,31 +35,31 @@ function Profile() {
     dispatch(readProfileUser(+id));
   }, [dispatch, id]);
 
-  return (
-    <Layout>
-      <ProfileContainer as="main">
-        <UserInfo
-          questionsLen={questions.length}
-          profile={profile}
-          answersLen={answers.length}
-          user={user}
-        />
-        <DataContainer>
-          <Buttons>
-            <Button onClick={toggleAnswer} isAnswer={isAnswer}>
-              <QuestionSvg />
-              <span>질문글</span>
-            </Button>
-            <Button onClick={toggleAnswer} isAnswer={!isAnswer}>
-              <AnswerSvg />
-              <span>답변글</span>
-            </Button>
-          </Buttons>
-          <List isAnswer={isAnswer} data={!isAnswer ? questions : answers} />
-        </DataContainer>
-      </ProfileContainer>
-    </Layout>
-  );
+  // return (
+  //   <Layout>
+  //     <ProfileContainer as="main">
+  //       <UserInfo
+  //         questionsLen={questions.length}
+  //         profile={profile}
+  //         answersLen={answers.length}
+  //         user={user}
+  //       />
+  //       <DataContainer>
+  //         <Buttons>
+  //           <Button onClick={toggleAnswer} isAnswer={isAnswer}>
+  //             <QuestionSvg />
+  //             <span>질문글</span>
+  //           </Button>
+  //           <Button onClick={toggleAnswer} isAnswer={!isAnswer}>
+  //             <AnswerSvg />
+  //             <span>답변글</span>
+  //           </Button>
+  //         </Buttons>
+  //         <List isAnswer={isAnswer} data={!isAnswer ? questions : answers} />
+  //       </DataContainer>
+  //     </ProfileContainer>
+  //   </Layout>
+  // );
 }
 export default Profile;
 

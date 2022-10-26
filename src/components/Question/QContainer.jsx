@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { removeQuestion } from "../../redux/modules/questions";
@@ -13,7 +13,7 @@ function QContainer({ question, len, user }) {
   const onDelete = () => {
     const ok = window.confirm("정말로 삭제하시겠습니까?");
     if (ok) {
-      dispatch(removeQuestion(question.id));
+      dispatch(removeQuestion(question.qusetionId));
       navigate("/questions");
     } else {
       return;
@@ -39,11 +39,13 @@ function QContainer({ question, len, user }) {
         <div>
           <span>{question && getDate(+question?.createdAt || Date.now())}</span>
           <span>답변수 {len}</span>
-          {user.id === question.userId ? (
+          {user && user.userId === question.userId ? (
             question.selectedAnswer ? null : (
               <>
                 <EditBtn
-                  onClick={() => navigate(`/questions/${question.id}/edit`)}
+                  onClick={() =>
+                    navigate(`/questions/${question.questionId}/edit`)
+                  }
                 >
                   수정
                 </EditBtn>

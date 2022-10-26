@@ -57,7 +57,7 @@ function AnswerItem({ answer, selectedId }) {
               <>
                 {" "}
                 <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
-                <EditBtn>수정</EditBtn>
+                <EditBtn onClick={navigate}>수정</EditBtn>
               </>
             )
           ) : null}

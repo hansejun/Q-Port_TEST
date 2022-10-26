@@ -6,15 +6,13 @@ import { removeCookieToken } from "../../shared/Cookie";
 import UseUser from "../hooks/useUser";
 import Logo1 from "../../static/logo.png";
 import { getUser } from "../../redux/modules/loginUser";
-
 // import Logo2 from "../../static/logo2.png";
+
 function Header() {
   const user = UseUser();
-  //const cookie = getCookieToken();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   //로그인한 유저가 login / join 페이지 접근시 이전 페이지로 되돌린다.
   useEffect(() => {
     if (user) {
@@ -33,7 +31,6 @@ function Header() {
 
   useEffect(() => {
     dispatch(getUser(user));
-    console.log("로그인 유저 정보 가져오기!");
   }, [dispatch, user]);
 
   const onClick = () => {
@@ -60,7 +57,7 @@ function Header() {
           ) : (
             <>
               <li>
-                <Link to={`/profile/${user?.id}`}>Profile</Link>
+                <Link to={`/profile/${user?.userId}`}>Profile</Link>
               </li>
               <li onClick={onClick}>Logout</li>
             </>

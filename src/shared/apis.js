@@ -1,6 +1,6 @@
 import axios from "axios";
 //import { Cookies } from "react-cookie";
-import { getCookieToken, getRefreshToken } from "./Cookie";
+import { getCookieToken } from "./Cookie";
 
 const baseURL = process.env.REACT_APP_SERVER_URL;
 
@@ -9,13 +9,13 @@ const myToken = getCookieToken();
 //const cookie = new Cookies();
 
 export const api = axios.create({
-  baseURL: process.env.REACT_APP_SERVER,
+  baseURL,
 });
 
 const instance = axios.create({
   baseURL,
   headers: {
-    Authorization: { QuestionPort: myToken },
+    Authorization: myToken,
     "Cache-Control": "no-cache",
     //"refresh-token": getRefreshToken(),
   },

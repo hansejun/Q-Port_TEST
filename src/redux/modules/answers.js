@@ -1,9 +1,7 @@
-import axios from "axios";
+import instance, { api } from "../../shared/apis";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
-
-const BASE_URL = "http://localhost:3001/answers";
-
+const BASE_URL = "";
 // patch 요청 put으로 수정해야함!
 
 /** questionId를 받아와서 그 질문에 대한 답변글들을 조회하는 함수 */
@@ -11,8 +9,9 @@ export const readAnswers = createAsyncThunk(
   "answers/readAnswers",
   async (payload, thunkApi) => {
     try {
-      const { data } = await axios.get(`${BASE_URL}?questionId=${payload}`);
-      return thunkApi.fulfillWithValue(data);
+      const { data } = await api.get(`answers/${payload}`);
+
+      return thunkApi.fulfillWithValue(data.data);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
     }
@@ -24,19 +23,8 @@ export const readUserAnswers = createAsyncThunk(
   "answers/readAnswers",
   async (payload, thunkApi) => {
     try {
-      const { data } = await axios.get(`${BASE_URL}?userId=${payload}`);
-      return data;
-    } catch (e) {
-      return thunkApi.rejectWithValue(e);
-    }
-  }
-);
-
-export const addAnswer = createAsyncThunk(
-  "answers/addAnswer",
-  async (payload, thunkApi) => {
-    try {
-      const { data } = await axios.post(`${BASE_URL}/answers`, payload);
+      const { data } = await api.get(`answers/users/${payload}`);
+      console.log(data);
       return thunkApi.fulfillWithValue(data);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
@@ -44,12 +32,13 @@ export const addAnswer = createAsyncThunk(
   }
 );
 
-export const editAnswer = createAsyncThunk(
-  "answers/editAnswer",
+/** questionId를 받아와서 answers를 조회하는 함수 */
+export const addAnswer = createAsyncThunk(
+  "answers/addAnswer",
   async (payload, thunkApi) => {
     try {
-      const { data } = await axios.patch(
-        `${BASE_URL}/answers/${payload.id}`,
+      const { data } = await instance.post(
+        `answers/${payload.id}`,
         payload.body
       );
       return thunkApi.fulfillWithValue(data);
@@ -59,11 +48,25 @@ export const editAnswer = createAsyncThunk(
   }
 );
 
+// answerId를 받아와서 수정하는 함수 (보류 )
+export const editAnswer = createAsyncThunk(
+  "answers/editAnswer",
+  async (payload, thunkApi) => {
+    try {
+      await instance.put(`answers/${payload.id}`, payload.body);
+      return thunkApi.fulfillWithValue(payload);
+    } catch (e) {
+      return thunkApi.rejectWithValue(e);
+    }
+  }
+);
+
+// answerId를 받아와서 삭제하는 함수
 export const removeAnswer = createAsyncThunk(
   "answers/removeAnswer",
   async (payload, thunkApi) => {
     try {
-      await axios.delete(`${BASE_URL}/${payload}`);
+      await instance.delete(`answers/${payload}`);
       return thunkApi.fulfillWithValue(payload);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
@@ -116,20 +119,20 @@ const answersSlice = createSlice({
       state.isLoading = true;
       state.error = action.payload;
     },
-    [editAnswer.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [editAnswer.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      const target = state.answers.findIndex(
-        (answer) => answer.id === action.payload.id
-      );
-      state.answers[target] = action.payload;
-    },
-    [editAnswer.rejected]: (state, action) => {
-      state.isLoading = true;
-      state.error = action.payload;
-    },
+    // [editAnswer.pending]: (state, action) => {
+    //   state.isLoading = true;
+    // },
+    // [editAnswer.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+    //   const target = state.answers.findIndex(
+    //     (answer) => answer.id === action.payload.id
+    //   );
+    //   //state.answers[target] = action.payload;
+    // },
+    // [editAnswer.rejected]: (state, action) => {
+    //   state.isLoading = true;
+    //   state.error = action.payload;
+    // },
     [removeAnswer.pending]: (state, action) => {
       state.isLoading = true;
     },
