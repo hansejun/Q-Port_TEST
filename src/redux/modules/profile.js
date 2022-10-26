@@ -70,7 +70,7 @@ const profileSlice = createSlice({
     },
     [profileAnswers.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.answers = Object.values(action.payload);
+      state.answers = action.payload;
     },
     [profileAnswers.rejected]: (state, action) => {
       state.isLoading = true;

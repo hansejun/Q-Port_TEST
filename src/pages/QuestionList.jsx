@@ -12,7 +12,7 @@ import { useEffect } from "react";
 function Question() {
   const dispatch = useDispatch();
   const { questions } = useSelector((state) => state.questions);
-  
+
   useEffect(() => {
     dispatch(readQuestions());
   }, [dispatch]);
@@ -45,8 +45,12 @@ function Question() {
                 <QListUserId>{question.nickname}</QListUserId>
               </QListWriter>
               <QListicon>
-                {/* <AiOutlineCheckCircle/> */}
-                <AiFillCheckCircle />
+                {question.selectedAnswer ? (
+                  <AiFillCheckCircle />
+                ) : (
+                  <AiOutlineCheckCircle />
+                )}
+                {/*  */}
               </QListicon>
               <ViewCount>
                 <p>{question.view}</p>

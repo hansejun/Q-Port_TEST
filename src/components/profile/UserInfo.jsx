@@ -22,7 +22,7 @@ function UserInfo({ questionsLen = 0, answersLen = 0, owner, user }) {
             답변 <Strong as="strong">{answersLen}</Strong>
           </span>
           <span>
-            내공 <Strong as="strong">{user?.score}</Strong>
+            내공 <Strong as="strong">{owner?.selectedAnswer}</Strong>
           </span>
         </UserLog>
         <UserDetail>

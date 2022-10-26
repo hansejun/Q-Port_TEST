@@ -8,11 +8,12 @@ import { Link, useNavigate } from "react-router-dom";
 import timeCheck from "../../utils/timeCheck";
 import { useDispatch } from "react-redux";
 import { removeAnswer } from "../../redux/modules/answers";
+import instance from "../../shared/apis";
 
 function AnswerItem({ answer, selectedId, user, ownerId }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(ownerId);
+
   const onDelete = () => {
     const ok = window.confirm("정말로 삭제하시겠습니까?");
     if (ok) {
@@ -21,6 +22,21 @@ function AnswerItem({ answer, selectedId, user, ownerId }) {
     } else {
       return;
     }
+  };
+  const onSelect = async () => {
+    const ok = window.confirm("채택하시겠습니까?");
+    if (!ok) return;
+    try {
+      const response = await instance.put(
+        `qnas/${answer?.questionId}/${answer?.answerId}`
+      );
+      if (response.status !== 200) {
+        return alert("채택이 실패하였습니다.");
+      }
+    } catch (e) {
+      return alert("채택이 실패하였습니다.");
+    }
+    window.location.reload();
   };
   return (
     <ItemBox id={answer.answerId + ""}>
@@ -39,7 +55,7 @@ function AnswerItem({ answer, selectedId, user, ownerId }) {
         </ItemUser>
       </Link>
       <ItemContent>
-        <img src={answer?.imgUrl} alt={" "} />
+        {answer?.imgUrl ? <img src={answer?.imgUrl} alt={" "} /> : null}
         <p>{answer?.content}</p>
         <span>{timeCheck(+answer?.createdAt)}</span>
       </ItemContent>
@@ -58,7 +74,7 @@ function AnswerItem({ answer, selectedId, user, ownerId }) {
                 <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
                 <EditBtn
                   onClick={() =>
-                    navigate(`questions/answers/${answer.answerId}/edit`)
+                    navigate(`/questions/answers/${answer.answerId}/edit`)
                   }
                 >
                   수정
@@ -69,7 +85,7 @@ function AnswerItem({ answer, selectedId, user, ownerId }) {
         </div>
         <div>
           {user && user.userId === ownerId && !selectedId ? (
-            <SelectBtn>채택하기</SelectBtn>
+            <SelectBtn onClick={onSelect}>채택하기</SelectBtn>
           ) : null}
         </div>
       </ItemBtns>

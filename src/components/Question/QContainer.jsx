@@ -39,6 +39,7 @@ function QContainer({ question, len, user }) {
         <div>
           <span>{question && getDate(+question?.createdAt || Date.now())}</span>
           <span>답변수 {len}</span>
+          <span>조회수 {question?.view}</span>
           {user && user.userId === question.userId ? (
             question.selectedAnswer ? null : (
               <>
@@ -87,15 +88,10 @@ const QContent = styled.div`
     font-weight: 500;
     line-height: 1.8;
   }
-  div {
-    ${Flexbox}
-    margin-top: 2rem;
-    width: 30%;
-    aspect-ratio: 1/1;
-    background-color: rgba(0, 0, 0, 0.2);
-  }
+
   img {
-    margin-top: 2rem;
+    max-width: 70%;
+    margin-top: 1.4rem;
   }
 `;
 
@@ -128,6 +124,11 @@ const QFooter = styled.div`
     font-weight: 500;
     span:first-child {
       margin-right: 1rem;
+    }
+    span:nth-child(2) {
+      margin-right: 0.9rem;
+      display: flex;
+      align-items: center;
     }
   }
 `;

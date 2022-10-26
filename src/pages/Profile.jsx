@@ -41,7 +41,7 @@ function Profile() {
   useEffect(() => {
     dispatch(profileQuestions(+id));
     dispatch(profileAnswers(+id));
-  }, [dispatch, id, isAnswer]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     dispatch(profileUser(+id));

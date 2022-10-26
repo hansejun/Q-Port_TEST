@@ -1,44 +1,61 @@
 import Layout from "../components/Layout/Layout";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addQuestion } from "../redux/modules/questions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
+import { getCookieToken } from "../shared/Cookie";
+import { postApi } from "../shared/apis";
 
 function QuestionForm() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const cookie = getCookieToken();
   const [input, setInput] = useState({
     title: "",
     content: "",
-    imgUrl:"",
+    qnaImage: "",
   });
+
+  const [file, setFile] = useState("");
 
   const onChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
   };
 
-  const onCreate = (e) => {
+  const onCreate = async (e) => {
     e.preventDefault();
+
     if (input.title === "") {
       return window.alert("질문의 제목을 입력해주세요!");
     } else if (input.title === "" || input.content === "") {
       return window.alert("모든 항목을 기입해주세요!");
     }
-    dispatch(addQuestion({ ...input }));
-    setInput({ userId: 1, title: "", content: "" });
+    try {
+      const response = await postApi.post(`qnas`, {
+        ...input,
+      });
+      if (response.status !== 200) {
+        return alert("질문 작성에 실패하였습니다.");
+      }
+    } catch (e) {
+      return alert("질문 작성에 실패하였습니다.");
+    }
+    setInput({ title: "", content: "" });
     navigate("/questions");
   };
 
-  const [file, setFile] = useState("");
   const onChangePreView = (e) => {
     const fileBlob = URL.createObjectURL(e.target.files[0]);
+    setInput((prev) => ({ ...prev, qnaImage: e.target.files[0] }));
     setFile(fileBlob);
   };
 
+  useEffect(() => {
+    if (!cookie) {
+      navigate("/login");
+      alert("로그인이 필요한 기능입니다.");
+    }
+  }, [cookie, navigate]);
   return (
     <Layout>
       <PageTitle>Question Form</PageTitle>
@@ -73,11 +90,10 @@ function QuestionForm() {
                   id="file"
                   accept="image/*"
                   onChange={onChangePreView}
-                  /* onClick={submitFileData} */
                 />
                 <button>
                   <i>
-                    <AiOutlinePlus/>
+                    <AiOutlinePlus />
                   </i>
                   Upload
                 </button>

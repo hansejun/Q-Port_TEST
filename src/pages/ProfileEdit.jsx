@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import UseUser from "../components/hooks/useUser";
 import Layout from "../components/Layout/Layout";
 import TextInput from "../elem/TextInput";
-import { api } from "../shared/apis";
+import { profileUser } from "../redux/modules/profile";
+import instance, { api, postApi } from "../shared/apis";
 import { Flexbox } from "../styles/flex";
 function ProfileEdit() {
-  const user = UseUser();
+  const loginUser = UseUser();
+  const { user } = useSelector((state) => state.profile);
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -18,18 +22,21 @@ function ProfileEdit() {
     formState: { errors },
     setError,
   } = useForm();
-
   useEffect(() => {
-    setValue("nickname", user.nickname);
+    if (user) setValue("nickname", user.nickname);
   }, [user, setValue]);
 
   useEffect(() => {
-    setFile(user.avatar);
+    if (user) setFile(user.avatar);
   }, [user]);
 
+  useEffect(() => {
+    dispatch(profileUser(loginUser?.userId));
+  }, [loginUser, dispatch]);
   // form이 제출되었을 때 발생하는 이벤트
   const onValid = (inputs) => {
     const { nickname, oldPassword, newPassword, confirm } = inputs;
+    console.log(inputs);
     if (
       user.nickname === nickname &&
       oldPassword === "" &&
@@ -53,7 +60,8 @@ function ProfileEdit() {
       );
       return;
     }
-    const response = api.post(`api/users/${user.id}`, {
+
+    const response = instance.put(`users/${user.userId}`, {
       nickname,
       oldPassword,
       newPassword,
@@ -69,17 +77,34 @@ function ProfileEdit() {
   };
 
   // 프로필을 수정할 때 발생하는 이벤트
-  const onChange = (e) => {
+  const onChange = async (e) => {
     const fileBlob = URL.createObjectURL(e.target.files[0]);
     setFile(fileBlob);
-    const formData = new FormData();
-    formData.append();
+    try {
+      console.log(e.target.files[0]);
+      const response = await postApi
+        .put("users/image", { avatar: e.target.files[0] })
+        .then((res) => {
+          return res;
+        });
+
+      if (response.status !== 200) {
+        return alert("프로필 수정이 실패하였습니다.");
+      }
+    } catch (e) {
+      return alert("프로필 수정이 실패하였습니다.");
+    }
+
+    navigate(`/profile/${user?.userId}`);
   };
+
   return (
     <Layout>
       <Wrapper>
         <FileForm>
-          <img src={file} alt={user.nickname} />
+          <div>
+            <img src={file} alt={user?.nickname} />
+          </div>
           <label>
             프로필 사진 변경
             <input
@@ -157,7 +182,7 @@ function ProfileEdit() {
             errorName={"confirm"}
           />
           <Btns>
-            <button onClick={() => navigate(`/profile/${user.id}`)}>
+            <button onClick={() => navigate(`/profile/${user.userId}`)}>
               취소하기
             </button>
             <button>수정하기</button>
@@ -184,12 +209,19 @@ const Wrapper = styled.div`
 const FileForm = styled.div`
   display: flex;
   flex-direction: column;
-  img {
-    width: 8rem;
-    aspect-ratio: 1/1;
-    object-fit: cover;
+  div {
+    background-color: rgba(0, 0, 0, 0.2);
     border-radius: 50%;
+
+    ${Flexbox}
+    img {
+      width: 8rem;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius: 50%;
+    }
   }
+
   label {
     ${Flexbox}
     border: 1px solid rgba(0, 0, 0, 0.4);

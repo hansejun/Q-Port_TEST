@@ -1,6 +1,6 @@
 import Layout from "../components/Layout/Layout";
 import styled from "styled-components";
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import { postApi } from "../shared/apis";
@@ -11,19 +11,20 @@ function WriteAnswer() {
   const cookie = getCookieToken();
   const navigate = useNavigate();
   const { id } = useParams();
-  const imgRef = useRef();
 
   const [input, setInput] = useState({
-    title: "",
     content: "",
-    avatarImg: "",
+    answerImg: "",
   });
   const [file, setFile] = useState("");
 
-  if (!cookie) {
-    alert("로그인이 필요한 서비스 입니다.");
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (!cookie) {
+      alert("로그인이 필요한 기능입니다.");
+      navigate("/login");
+    }
+  }, [cookie, navigate]);
+
   const onChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
@@ -37,19 +38,18 @@ function WriteAnswer() {
 
   const onCreate = async (e) => {
     e.preventDefault();
-    if (input.title === "") {
-      return window.alert("질문의 제목을 입력해주세요!");
-    } else if (input.title === "" || input.content === "") {
-      return window.alert("모든 항목을 기입해주세요!");
+
+    if (input.content === "") {
+      return window.alert("내용을 입력해주세요!");
     }
+
     try {
       const response = await postApi.post(`answers/${id}`, {
         ...input,
       });
-      if (response.status !== 200) {
+      if (response.status !== 201) {
         return alert("글 작성에 실패하였습니다.");
       }
-      console.log(response);
     } catch (e) {
       return alert("글작성에 실패하였습니다.");
     }
@@ -64,18 +64,8 @@ function WriteAnswer() {
       <Formlabel>답변 작성</Formlabel>
       <Line />
       <FormContainer onSubmit={onCreate}>
-        <CreateTitle
-          autoFocus
-          type="text"
-          name="title"
-          onChange={onChange}
-          value={input.title}
-          placeholder="답변 제목"
-          maxLength={40}
-        />
         <div>
           <CreateContent
-            type="text"
             name="content"
             onChange={onChange}
             value={input.content}
@@ -92,7 +82,6 @@ function WriteAnswer() {
                   id="file"
                   accept="image/*"
                   onChange={onChangePreView}
-                  /* onClick={submitFileData} */
                 />
                 <button>
                   <i>
@@ -104,7 +93,7 @@ function WriteAnswer() {
               <p>Support files</p>
               <p>JPG,PNG,GIF</p>
             </FileCard>
-            <Img src={file} alt={""} ref={imgRef} />
+            <Img src={file} alt={""} />
           </FileBox>
         </div>
         <StyleButton>답변 추가</StyleButton>
@@ -144,24 +133,12 @@ const FormContainer = styled.form`
   height: 800px;
 `;
 
-const CreateTitle = styled.input`
-  border: 1px solid #e9ecef;
-  width: 60%;
-  height: 42px;
-  margin: 50px;
-  margin-bottom: 30px;
-  padding: 8px 20px 8px 20px;
-  border-radius: 0.2rem;
-  font-size: 20px;
-  font-weight: bold;
-  cursor: text;
-`;
-
 const CreateContent = styled.textarea`
   border: 1px solid #e9ecef;
   width: 60%;
   height: 240px;
   margin-left: 50px;
+  margin-top: 3rem;
   padding: 20px 20px 20px 20px;
   border-radius: 0.2rem;
   font-size: 18px;

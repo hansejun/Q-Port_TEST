@@ -23,7 +23,6 @@ function Home() {
   const { questions } = useSelector((state) => state.questions);
   const counter = questions.map((search) => search.selectedAnswer);
   const Rank = counter.sort((a, b) => b - a);
-  console.log(Rank[0],Rank[1],Rank[2]);
 
   const backgroundArr = [me1, me2, me3, me4, me5, me6, me7, me8, me9, me10];
   const randomIndex = Math.floor(Math.random() * backgroundArr.length);

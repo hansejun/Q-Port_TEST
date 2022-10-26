@@ -4,7 +4,7 @@ import UseUser from "../hooks/useUser";
 function AnswerList({ answers, selectedId, ownerId }) {
   const user = UseUser();
   let newAnswers = [];
-  console.log(answers);
+
   answers?.forEach((answer) =>
     answer.answerId === selectedId
       ? newAnswers.unshift(answer)
