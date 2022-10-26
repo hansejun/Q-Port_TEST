@@ -3,20 +3,6 @@ import axios from "axios";
 import instance, { api } from "../../shared/apis";
 const BASE_URL = "http://localhost:3001/questions";
 
-/** userId를 받아와서 해당 유저의 질문글들을 조회하는 함수 */
-export const readUserQuestions = createAsyncThunk(
-  "questions/readQuestions",
-  async (payload, thunkApi) => {
-    try {
-      const { data } = await api.get(`qnas/users/${payload}`);
-
-      return thunkApi.fulfillWithValue(data.data);
-    } catch (e) {
-      return thunkApi.rejectWithValue(e);
-    }
-  }
-);
-
 /** questionId를 받아와서 해당 질문글을 조회하는 함수 */
 export const readQuestion = createAsyncThunk(
   "questions/readQuestion",
@@ -80,16 +66,6 @@ const questionsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [readUserQuestions.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [readUserQuestions.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.questions = action.payload;
-    },
-    [readUserQuestions.rejected]: (state, action) => {
-      state.isLoading = false;
-    },
     [readQuestion.pending]: (state, action) => {
       state.isLoading = true;
     },

@@ -31,11 +31,16 @@ function Join() {
       password: inputs.password,
       confirm: inputs.confirm,
     };
-
-    const response = await api.post("signup", info);
-    if (response.status !== 200) {
-      alert(response.data.message);
-      return;
+    try {
+      const response = await api.post("signup", info);
+      if (response.status !== 200) {
+        alert(response.data.message);
+        return;
+      } else {
+        alert("회원가입에 성공하였습니다.");
+      }
+    } catch (e) {
+      return alert("회원가입에 실패하였습니다.");
     }
     window.location.href = "/login";
   };

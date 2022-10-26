@@ -6,29 +6,28 @@ import CheckSvg from "../../styles/svg/CheckSvg";
 import CommentSvg from "../../styles/svg/CommentSvg";
 import { Link, useNavigate } from "react-router-dom";
 import timeCheck from "../../utils/timeCheck";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { removeAnswer } from "../../redux/modules/answers";
 
-function AnswerItem({ answer, selectedId }) {
-  const { user } = useSelector((state) => state.users);
+function AnswerItem({ answer, selectedId, user, ownerId }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  console.log(ownerId);
   const onDelete = () => {
     const ok = window.confirm("정말로 삭제하시겠습니까?");
     if (ok) {
-      dispatch(removeAnswer(answer.id));
+      dispatch(removeAnswer(answer.answerId));
       navigate("/questions");
     } else {
       return;
     }
   };
   return (
-    <ItemBox id={answer.id + ""}>
+    <ItemBox id={answer.answerId + ""}>
       <Link to={`/profile/${answer?.userId}`}>
         <ItemUser>
           <div>
-            {selectedId === answer.id ? (
+            {selectedId === answer.answerId ? (
               <span>
                 <CheckSvg />
               </span>
@@ -52,21 +51,25 @@ function AnswerItem({ answer, selectedId }) {
           <span>
             <CommentSvg /> 2
           </span>
-          {user.id === answer.id ? (
-            answer.id === selectedId ? null : (
+          {user && user.userId === answer.userId ? (
+            answer.answerId === selectedId ? null : (
               <>
                 {" "}
                 <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
-                <EditBtn onClick={navigate}>수정</EditBtn>
+                <EditBtn
+                  onClick={() =>
+                    navigate(`questions/answers/${answer.answerId}/edit`)
+                  }
+                >
+                  수정
+                </EditBtn>
               </>
             )
           ) : null}
         </div>
         <div>
-          {user.id === answer.questionId ? (
-            selectedId ? null : (
-              <SelectBtn>채택하기</SelectBtn>
-            )
+          {user && user.userId === ownerId && !selectedId ? (
+            <SelectBtn>채택하기</SelectBtn>
           ) : null}
         </div>
       </ItemBtns>

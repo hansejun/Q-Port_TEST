@@ -16,48 +16,24 @@ function Login() {
   } = useForm();
 
   const onValid = async (inputs) => {
-    const info = {
-      email: inputs.email,
-      password: inputs.password,
-    };
-    // BaseUrl 추가
-    // const response = await axios.post("/api/login", info).then((res) => {
-    //   //console.log(res)
-    //   //setAccessToken(res.headers.authorization);
-    //   //setRefreshToken(res.headers['refresh-token'])
-    // });
-    // if (response.data.ok) {
-    //   window.location.href = "/";
-    // } else {
-    //   alert("로그인 실패");
-    // }
+    try {
+      const response = await api
+        .post("login", {
+          ...inputs,
+        })
+        .then((res) => {
+          setAccessToken(res.data.token);
+          return res;
+        });
 
-    //   const response = await axios
-    //     .get(
-    //       `http://localhost:3001/users?email=${info.email}&password=${info.password}`
-    //     )
-    //     .then((res) => {
-    //       setAccessToken(res.data[0].id);
-    //       return res;
-    //     })
-    //     .catch((res) => res);
-    //   if (response?.status === 200) window.location.href = "/";
-    // };
-
-    const response = await api
-      .post("login", {
-        ...inputs,
-      })
-      .then((res) => {
-        setAccessToken(res.data.token);
-        return res;
-      });
-
-    if (response.status !== 200) {
-      alert("회원가입에 실패하였습니다.");
-    } else {
-      window.location.href = "/";
+      if (response.status !== 200) {
+        return alert("회원가입에 실패하였습니다.");
+      }
+    } catch (e) {
+      return alert("로그인에 실패하였습니다.");
     }
+
+    window.location.href = "/";
   };
 
   return (

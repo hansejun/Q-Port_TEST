@@ -6,20 +6,32 @@ import UseUser from "../components/hooks/useUser";
 import Layout from "../components/Layout/Layout";
 import List from "../components/profile/List";
 import UserInfo from "../components/profile/UserInfo";
-import { readUserAnswers } from "../redux/modules/answers";
-import { readProfileUser } from "../redux/modules/loginUser";
-import { readUserQuestions } from "../redux/modules/questions";
+
+import {
+  profileAnswers,
+  profileQuestions,
+  profileUser,
+} from "../redux/modules/profile";
+
 import AnswerSvg from "../styles/svg/AnswerSvg";
 import QuestionSvg from "../styles/svg/QuestionSvg";
 
 function Profile() {
   const [isAnswer, setIsAnswer] = useState(false);
   const { id } = useParams();
-  const { questions } = useSelector((state) => state.questions);
-  const { answers } = useSelector((state) => state.answers);
-  const { profile } = useSelector((state) => state.users);
+  const { questions, isLoading: qLoading } = useSelector(
+    (state) => state.profile
+  );
+  const { answers, isLoading: aLoading } = useSelector(
+    (state) => state.profile
+  );
+  const { user: owner, isLoading: oLoading } = useSelector(
+    (state) => state.profile
+  );
+
   // 현재 로그인한 유저 정보 가져오기
   const user = UseUser();
+
   const dispatch = useDispatch();
 
   const toggleAnswer = () => {
@@ -27,39 +39,40 @@ function Profile() {
   };
 
   useEffect(() => {
-    dispatch(readUserQuestions(+id));
-    dispatch(readUserAnswers(+id));
+    dispatch(profileQuestions(+id));
+    dispatch(profileAnswers(+id));
   }, [dispatch, id, isAnswer]);
 
   useEffect(() => {
-    dispatch(readProfileUser(+id));
+    dispatch(profileUser(+id));
   }, [dispatch, id]);
 
-  // return (
-  //   <Layout>
-  //     <ProfileContainer as="main">
-  //       <UserInfo
-  //         questionsLen={questions.length}
-  //         profile={profile}
-  //         answersLen={answers.length}
-  //         user={user}
-  //       />
-  //       <DataContainer>
-  //         <Buttons>
-  //           <Button onClick={toggleAnswer} isAnswer={isAnswer}>
-  //             <QuestionSvg />
-  //             <span>질문글</span>
-  //           </Button>
-  //           <Button onClick={toggleAnswer} isAnswer={!isAnswer}>
-  //             <AnswerSvg />
-  //             <span>답변글</span>
-  //           </Button>
-  //         </Buttons>
-  //         <List isAnswer={isAnswer} data={!isAnswer ? questions : answers} />
-  //       </DataContainer>
-  //     </ProfileContainer>
-  //   </Layout>
-  // );
+  if (qLoading || aLoading || oLoading) return;
+  return (
+    <Layout>
+      <ProfileContainer as="main">
+        <UserInfo
+          questionsLen={questions.length}
+          owner={owner}
+          answersLen={answers.length}
+          user={user}
+        />
+        <DataContainer>
+          <Buttons>
+            <Button onClick={toggleAnswer} isAnswer={isAnswer}>
+              <QuestionSvg />
+              <span>질문글</span>
+            </Button>
+            <Button onClick={toggleAnswer} isAnswer={!isAnswer}>
+              <AnswerSvg />
+              <span>답변글</span>
+            </Button>
+          </Buttons>
+          <List isAnswer={isAnswer} data={!isAnswer ? questions : answers} />
+        </DataContainer>
+      </ProfileContainer>
+    </Layout>
+  );
 }
 export default Profile;
 

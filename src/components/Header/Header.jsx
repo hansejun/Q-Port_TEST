@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -67,7 +67,7 @@ function Header() {
     </HeaderWrapper>
   );
 }
-export default Header;
+export default memo(Header);
 const HeaderWrapper = styled.div`
   width: 100%;
   height: 44px;

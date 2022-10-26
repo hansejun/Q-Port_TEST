@@ -1,17 +1,17 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-function UserInfo({ questionsLen = 0, answersLen = 0, profile, user }) {
+function UserInfo({ questionsLen = 0, answersLen = 0, owner, user }) {
   return (
     <UserContainer as="section">
       <UserImg>
-        <img src={profile?.avatar} alt={profile.nickname} />
+        <img src={owner?.avatar} alt={owner?.nickname} />
       </UserImg>
       <UserInfos>
         <UserProfile>
-          <span>{profile?.nickname}</span>
-          {profile.id === user.id ? (
-            <Link to={`/profile/${user.id}/edit`}>프로필 편집</Link>
+          <span>{owner?.nickname}</span>
+          {user && owner?.userId === user.userId ? (
+            <Link to={`/profile/${user.userId}/edit`}>프로필 편집</Link>
           ) : null}
         </UserProfile>
         <UserLog>
@@ -22,11 +22,11 @@ function UserInfo({ questionsLen = 0, answersLen = 0, profile, user }) {
             답변 <Strong as="strong">{answersLen}</Strong>
           </span>
           <span>
-            내공 <Strong as="strong">{user.score}</Strong>
+            내공 <Strong as="strong">{user?.score}</Strong>
           </span>
         </UserLog>
         <UserDetail>
-          <span>{profile?.email}</span>
+          <span>{owner?.email}</span>
         </UserDetail>
       </UserInfos>
     </UserContainer>

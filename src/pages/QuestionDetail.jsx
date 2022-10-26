@@ -14,14 +14,15 @@ import AnswerSvg from "../styles/svg/AnswerSvg";
 
 function QuestionDetail() {
   const { question } = useSelector((state) => state.questions);
-  const { answers } = useSelector((state) => state.answers);
+  const { answers, isLoading } = useSelector((state) => state.answers);
   const navigate = useNavigate();
   const { id } = useParams();
   const user = UseUser();
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(readQuestion(+id));
     dispatch(readAnswers(+id));
+    dispatch(readQuestion(+id));
   }, [id, dispatch]);
 
   const onClickEdit = () => {
@@ -31,6 +32,8 @@ function QuestionDetail() {
       navigate("/login");
     }
   };
+
+  if (isLoading) return;
 
   return (
     <Layout>
@@ -56,7 +59,11 @@ function QuestionDetail() {
               </li>
             </ul>
           </AnswerOptions>
-          <AnswerList answers={answers} selectedId={question?.selectedAnswer} />
+          <AnswerList
+            answers={answers}
+            selectedId={question?.selectedAnswer}
+            ownerId={question?.userId}
+          />
         </AnswerContainer>
       </Wrapper>
     </Layout>

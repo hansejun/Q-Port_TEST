@@ -1,7 +1,7 @@
 import instance, { api } from "../../shared/apis";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
-const BASE_URL = "";
+
 // patch 요청 put으로 수정해야함!
 
 /** questionId를 받아와서 그 질문에 대한 답변글들을 조회하는 함수 */
@@ -12,20 +12,6 @@ export const readAnswers = createAsyncThunk(
       const { data } = await api.get(`answers/${payload}`);
 
       return thunkApi.fulfillWithValue(data.data);
-    } catch (e) {
-      return thunkApi.rejectWithValue(e);
-    }
-  }
-);
-
-/** userId를 받아와서 그 유저가 남긴 답변글들을 조회하는 함수 */
-export const readUserAnswers = createAsyncThunk(
-  "answers/readAnswers",
-  async (payload, thunkApi) => {
-    try {
-      const { data } = await api.get(`answers/users/${payload}`);
-      console.log(data);
-      return thunkApi.fulfillWithValue(data);
     } catch (e) {
       return thunkApi.rejectWithValue(e);
     }
@@ -77,7 +63,7 @@ export const removeAnswer = createAsyncThunk(
 const initialState = {
   answers: [],
   answer: {},
-  isLoading: false,
+  isLoading: true,
   error: null,
 };
 
@@ -94,18 +80,7 @@ const answersSlice = createSlice({
       state.answers = action.payload;
     },
     [readAnswers.rejected]: (state, action) => {
-      state.isLoading = true;
-      state.error = action.payload;
-    },
-    [readUserAnswers.pending]: (state, action) => {
-      state.isLoading = true;
-    },
-    [readUserAnswers.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.answers = action.payload;
-    },
-    [readUserAnswers.rejected]: (state, action) => {
-      state.isLoading = true;
       state.error = action.payload;
     },
     [addAnswer.pending]: (state, action) => {

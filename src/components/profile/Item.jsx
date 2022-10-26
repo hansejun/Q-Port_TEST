@@ -8,16 +8,16 @@ function Item({ isAnswer, data }) {
   return (
     <DataContainer>
       <Link
-        to={
-          !isAnswer ? `/questions/${data.id}` : `/questions/${data.questionId}`
-        }
+        to={`/questions/${data.questionId}`}
         state={{ scrollId: !isAnswer ? data.id : null }}
       >
-        <p>{!isAnswer ? data.title : data.content}</p>
+        <p>{data.title}</p>
       </Link>
       <DataContent isAnswer={isAnswer}>
-        {!isAnswer}
-        <span>{!data.selectedAnswer ? "진행중" : "채택 완료"}</span>
+        {!isAnswer ? (
+          <span>{!data.selectedAnswer ? "진행중" : "채택 완료"}</span>
+        ) : null}
+        {isAnswer ? <span>{data.status}</span> : null}
         {isAnswer ? null : (
           <span>
             <CommentSvg />3

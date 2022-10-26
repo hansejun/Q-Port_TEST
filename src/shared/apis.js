@@ -21,6 +21,16 @@ const instance = axios.create({
   },
 });
 
+export const postApi = axios.create({
+  baseURL,
+  headers: {
+    Authorization: myToken,
+    "Content-Type": "multipart/form-data",
+    "Cache-Control": "no-cache",
+    //"refresh-token": getRefreshToken(),
+  },
+});
+
 export default instance;
 
 //토큰 만료시 인터셉터

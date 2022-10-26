@@ -1,38 +1,37 @@
 import Layout from "../components/Layout/Layout";
-import Avatar from "@mui/material/Avatar";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import TextField from "@mui/material/TextField";
-import Button from "../elem/Button";
-import Container from "@mui/material/Container";
-import { addAnswer } from "../redux/modules/answers";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import instance from "../shared/apis";
+import instance, { postApi } from "../shared/apis";
+import { useSelector } from "react-redux";
+import { getCookieToken } from "../shared/Cookie";
 
 function WriteAnswer() {
-  const dispatch = useDispatch();
+  const cookie = getCookieToken();
   const navigate = useNavigate();
   const { id } = useParams();
-  console.log(id);
+  const imgRef = useRef();
 
   const [input, setInput] = useState({
     title: "",
     content: "",
-    imgUrl: null,
+    avatarImg: "",
   });
   const [file, setFile] = useState("");
 
+  if (!cookie) {
+    alert("로그인이 필요한 서비스 입니다.");
+    navigate("/login");
+  }
   const onChange = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
   };
 
   const onChangePreView = (e) => {
-    const formData = new FormData();
     const fileBlob = URL.createObjectURL(e.target.files[0]);
+    setInput((prev) => ({ ...prev, answerImg: e.target.files[0] }));
     setFile(fileBlob);
   };
 
@@ -43,10 +42,20 @@ function WriteAnswer() {
     } else if (input.title === "" || input.content === "") {
       return window.alert("모든 항목을 기입해주세요!");
     }
-    await instance.post(`answers/${id}`, { ...input });
+    try {
+      const response = await postApi.post(`answers/${id}`, {
+        ...input,
+      });
+      if (response.status !== 200) {
+        return alert("글 작성에 실패하였습니다.");
+      }
+      console.log(response);
+    } catch (e) {
+      return alert("글작성에 실패하였습니다.");
+    }
 
-    setInput({ title: "", content: "", imgUrl: "" });
-    navigate("/questions");
+    setInput({ title: "", content: "" });
+    navigate(`/questions/${id}`);
   };
 
   return (
@@ -95,7 +104,7 @@ function WriteAnswer() {
               <p>Support files</p>
               <p>JPG,PNG,GIF</p>
             </FileCard>
-            <Img src={file} alt={""} />
+            <Img src={file} alt={""} ref={imgRef} />
           </FileBox>
         </div>
         <StyleButton>답변 추가</StyleButton>
