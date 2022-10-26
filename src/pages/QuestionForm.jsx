@@ -77,7 +77,7 @@ function QuestionForm() {
                 />
                 <button>
                   <i>
-                    <AiOutlinePlus style={{}} />
+                    <AiOutlinePlus/>
                   </i>
                   Upload
                 </button>
@@ -150,7 +150,6 @@ const CreateContent = styled.textarea`
   cursor: text;
 `;
 const FileBox = styled.div`
-  /* background-color: red; */
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 65%;

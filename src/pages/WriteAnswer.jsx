@@ -1,14 +1,22 @@
 import Layout from "../components/Layout/Layout";
 import Avatar from "@mui/material/Avatar";
-/* import { useSelector } from "react-redux"; */
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import TextField from "@mui/material/TextField";
 import Button from '../elem/Button';
 import Container from '@mui/material/Container';
+import { useEffect } from 'react';
+import { readQuestion } from '../redux/modules/questions';
 
 
 function WriteAnswer() {
   //content img 답변페이지에서 수정까지
+  const dispatch = useDispatch();
+  const Q = useSelector((state)=> state.questions.questions)
+  
+  useEffect(()=>{
+    dispatch(readQuestion())
+  },[dispatch])
 
   return (
     <Layout>
@@ -17,7 +25,7 @@ function WriteAnswer() {
       <InfoGroup>
         <AvatarBox>
         <Avatar style={{ width: "80px", height: "80px" }} />
-        {/* <InfoNickName></InfoNickName> */}
+        <InfoNickName>{Q.nickname}</InfoNickName>
         <Question>
           
           <div>
@@ -68,7 +76,7 @@ const AvatarBox = styled.div`
 `;
 
 const InfoNickName = styled.div`
-  /* background-color: red; */
+  background-color: red;
   width: 6rem;
   height: 20px;
   margin-left: 5rem;
