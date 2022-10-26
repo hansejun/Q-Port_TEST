@@ -101,4 +101,5 @@ const HeaderWrapper = styled.div`
 
 const Logo = styled.img`
   width: 4rem;
+  cursor: pointer;
 `;
